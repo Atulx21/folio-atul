@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TESSERACT.OS // Non-Linear Spatial Engine
 
-## Getting Started
+![Three.js](https://img.shields.io/badge/Three.js-050507?style=for-the-badge&logo=three.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-050507?style=for-the-badge&logo=webgl&logoColor=white)
+![React Three Fiber](https://img.shields.io/badge/R3F-050507?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Next.js](https://img.shields.io/badge/Next.js_14-050507?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-050507?style=for-the-badge&logo=typescript&logoColor=3178C6)
 
-First, run the development server:
+A 60-120 FPS non-linear spatial portfolio engine engineered by [Atul Parmar](https://github.com/Atulx21). 
+Built to break the static DOM paradigm, this architecture relies on a persistent single-canvas WebGL context, a 5-dimensional Catmull-Rom camera spline, and custom GLSL shaders to render physical web experiences.
+
+## ⚙️ Core Architecture & Physics
+- **Singularity Core:** 35,000+ GPGPU-computed particles running via custom GLSL Curl-Noise shaders.
+- **Relativistic Velocity:** Camera FOV and 3D architectural monoliths physically bend and stretch against `lenis.velocity` scroll thrust.
+- **Diegetic Spatial Audio:** Procedural Hans Zimmer-style 55Hz sub-bass drone generated via the native Web Audio API (BiquadFilterNode), mapped to user momentum.
+- **State Management:** Transient `Zustand` updates piped directly into the `useFrame` render loop, guaranteeing zero React re-renders during physical movement.
+
+## 🚀 Local Ignition
 
 ```bash
+# 1. Clone the repository
+git clone [https://github.com/Atulx21/tesseract-spatial-engine.git](https://github.com/Atulx21/tesseract-spatial-engine.git)
+
+# 2. Install dependencies
+npm install
+
+# 3. Ignite the WebGL engine
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

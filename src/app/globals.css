@@ -1,26 +1,199 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --void: #050507;
+  --tungsten: #121318;
+  --alabaster: #f2efe9;
+  --slate-hud: #7e828e;
+  --horizon: #ff5500;
+  --cherenkov: #a6e1fa;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-void: var(--void);
+  --color-tungsten: var(--tungsten);
+  --color-alabaster: var(--alabaster);
+  --color-slate-hud: var(--slate-hud);
+  --color-horizon: var(--horizon);
+  --color-cherenkov: var(--cherenkov);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ───────────── Base ───────────── */
+html {
+  background: var(--void);
+  overscroll-behavior: none;
+  scrollbar-width: none; /* the HUD has its own right-edge scrubber */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--void);
+  color: var(--alabaster);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--horizon);
+  color: var(--void);
+}
+
+:focus-visible {
+  outline: 1px solid var(--horizon);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+/* ───────────── Lenis (recommended) ───────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ───────────── Components ───────────── */
+@layer components {
+  /* One central place to tune blur cost. Big blurs over a live WebGL canvas are expensive. */
+  .glass {
+    background: rgb(5 5 7 / 0.78);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    backdrop-filter: blur(10px) saturate(1.2);
+  }
+  .glass-strong {
+    background: rgb(5 5 7 / 0.88);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+    backdrop-filter: blur(10px) saturate(1.2);
+  }
+  .glass-chip {
+    background: rgb(18 19 24 / 0.78);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  /* Stage content fades/slides in when its stage becomes active (driven by data-active). */
+  .stage-content {
+    position: relative;
+    visibility: hidden; /* also removes hidden stages from hit-testing and tab order */
+    transition: visibility 0s linear 0.7s;
+  }
+  .stage-content[data-active="true"] {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .stage-content > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.7s var(--ease-out-expo);
+  }
+  .stage-content[data-active="true"] > * {
+    opacity: 1;
+    transform: none;
+  }
+  .stage-content[data-active="true"] > *:nth-child(2) {
+    transition-delay: 0.08s;
+  }
+  .stage-content[data-active="true"] > *:nth-child(3) {
+    transition-delay: 0.16s;
+  }
+  .stage-content[data-active="true"] > *:nth-child(4) {
+    transition-delay: 0.24s;
+  }
+
+  /* Soft vignette behind the hero copy so it stays legible over bright particles.
+     Radial, so it fades out before the section edges (no hard seam while scrolling). */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 62% 46% at 30% 50%,
+      rgb(5 5 7 / 0.78) 0%,
+      rgb(5 5 7 / 0.5) 45%,
+      transparent 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-content,
+  .stage-content > * {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ───────────── Custom cursor (class added by TelemetryHUD, fine pointers only) ───────────── */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
+  }
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea {
+    cursor: text !important;
+  }
+}
+
+/* ───────────── Project modal animations ───────────── */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-backdrop-out {
+  to { opacity: 0; }
+}
+@keyframes modal-panel-in {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes modal-panel-out {
+  to { opacity: 0; transform: translate3d(20px, 0, 0); }
+}
+.modal-backdrop {
+  animation: modal-backdrop-in 0.25s ease-out both;
+}
+.modal-backdrop[data-closing="true"] {
+  animation: modal-backdrop-out 0.2s ease-in both;
+}
+.modal-panel {
+  animation: modal-panel-in 0.45s var(--ease-out-expo) both;
+}
+.modal-panel[data-closing="true"] {
+  animation: modal-panel-out 0.2s ease-in both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .modal-panel {
+    animation-duration: 0.01ms !important;
+  }
 }
