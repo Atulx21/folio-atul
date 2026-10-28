@@ -177,14 +177,13 @@ function HeroSection() {
         [00 // SINGULARITY — NON-LINEAR SPATIAL PORTFOLIO]
       </p>
       <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] font-extrabold tracking-tighter leading-[0.92] uppercase drop-shadow-[0_4px_30px_rgba(5,5,7,0.55)]">
-        ARCHITECTING <br />
+        ATUL <br />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F2EFE9] via-[#A6E1FA] to-[#FF5500]">
-          LIVING SYSTEMS.
+          PARMAR
         </span>
       </h1>
       <p className="max-w-xl text-sm md:text-base text-[#7E828E] font-light leading-relaxed">
-        Full-Stack Systems & Creative Graphics Engineer. Building high-concurrency architectures,
-        AI vector pipelines, and physics-driven spatial interfaces. Apply scroll thrust to enter the Tesseract.
+        Computer Science graduate from IIIT Guwahati and Full-Stack Software Engineer. I specialize in architecting dynamic web and cross-platform mobile applications from concept to completion using React, React Native, and Node.js. Apply scroll thrust to enter the Tesseract.
       </p>
       <div className="flex flex-wrap items-center gap-3 pt-2">
         <button
@@ -196,7 +195,7 @@ function HeroSection() {
           <ArrowDown className="h-3.5 w-3.5" />
         </button>
         <a
-          href="/Atul_Parmar_Resume.pdf"
+          href="https://drive.google.com/file/d/1C_2MMx7_-6ZxacXWuX2dqA-kJuSRlTnW/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 border border-white/20 px-5 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:border-[#FF5500]"
