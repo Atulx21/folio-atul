@@ -289,9 +289,20 @@ export default function ArchiveMonoliths() {
     const dt = Math.min(delta, 0.05);
     const store = useSpatialStore.getState();
 
-    const active = store.scrollProgress < HIDE_AFTER_SCROLL;
+    // const active = store.scrollProgress < HIDE_AFTER_SCROLL;
+    // shared.active = active;
+    // if (groupRef.current) groupRef.current.visible = active;
+        // Monoliths grow out of the singularity as the camera leaves Stage 00, and shrink away after Stage 01
+    const cp = store.cameraProgress;
+    const presence =
+      THREE.MathUtils.smoothstep(cp, 0.03, 0.14) *
+      (1 - THREE.MathUtils.smoothstep(cp, HIDE_AFTER_SCROLL - 0.1, HIDE_AFTER_SCROLL));
+    const active = presence > 0.002;
     shared.active = active;
-    if (groupRef.current) groupRef.current.visible = active;
+    if (groupRef.current) {
+      groupRef.current.visible = active;
+      groupRef.current.scale.setScalar(Math.max(presence, 0.0001));
+    }
     if (!active) return;
 
     shared.uTime.value += dt;

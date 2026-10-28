@@ -21,7 +21,10 @@ import {
   Globe,
   Code2,
   Mail,
+  FileText,
+  ArrowDown,
 } from 'lucide-react';
+import Lenis from 'lenis';
 
 // Dynamically import the WebGL Canvas so it strictly executes on the client GPU
 const SpatialCanvas = dynamic(() => import('@/components/canvas/SpatialCanvas'), {
@@ -36,6 +39,7 @@ const SpatialCanvas = dynamic(() => import('@/components/canvas/SpatialCanvas'),
 const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? '';
 const CONTACT_EMAIL = 'atulparmar0021@gmail.com';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/atul-parmar/';
+const RESUME_URL = 'https://drive.google.com/file/d/1C_2MMx7_-6ZxacXWuX2dqA-kJuSRlTnW/view?usp=drive_link';
 
 type Channel = {
   label: string;
@@ -63,6 +67,16 @@ const CHANNELS: Channel[] = [
     hoverClass: 'hover:border-[#A6E1FA]',
     external: true,
   },
+    {
+    label: 'RESUME // PDF',
+    href: RESUME_URL,
+    Icon: FileText,
+    iconClass: 'text-[#A6E1FA]',
+    hoverClass: 'hover:border-[#A6E1FA]',
+    external: true,
+  },
+
+  
   ...(LINKEDIN_URL
     ? [
         {
@@ -144,6 +158,12 @@ function Stage({
 }
 
 /* ───────────────────────── STAGE 00 ───────────────────────── */
+const scrollToStage = (stage: number) => {
+  const lenis = (window as unknown as { lenis?: Lenis }).lenis;
+  if (!lenis) return;
+  lenis.scrollTo((stage / 4) * lenis.limit, { duration: 2.2 });
+};
+
 function HeroSection() {
   return (
     <Stage
@@ -166,6 +186,25 @@ function HeroSection() {
         Full-Stack Systems & Creative Graphics Engineer. Building high-concurrency architectures,
         AI vector pipelines, and physics-driven spatial interfaces. Apply scroll thrust to enter the Tesseract.
       </p>
+      <div className="flex flex-wrap items-center gap-3 pt-2">
+        <button
+          type="button"
+          onClick={() => scrollToStage(1)}
+          className="flex cursor-pointer items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9]"
+        >
+          <span>VIEW SELECTED WORKS</span>
+          <ArrowDown className="h-3.5 w-3.5" />
+        </button>
+        <a
+          href="/Atul_Parmar_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 border border-white/20 px-5 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:border-[#FF5500]"
+        >
+          <FileText className="h-3.5 w-3.5 text-[#FF5500]" />
+          <span>RESUME</span>
+        </a>
+      </div>
     </Stage>
   );
 }
@@ -247,16 +286,16 @@ function EngineSection() {
       index={2}
       label="The Engine"
       className="flex flex-col justify-end pb-20 px-10 md:px-24"
-      contentClassName="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-end"
+      contentClassName="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 items-end"
     >
-      {/* Left tier selector */}
-      <div className="lg:col-span-5 space-y-2.5 pointer-events-auto">
-        <div data-ui className="glass p-5 mb-3">
+      {/* Left: compact title + tier selector */}
+      <div className="lg:col-span-4 space-y-2 pointer-events-auto">
+        <div data-ui className="glass px-4 py-3">
           <span className="font-mono text-[10px] tracking-[0.25em] text-[#FF5500] flex items-center gap-2">
             <Layers className="w-3.5 h-3.5" />
-            <span>[02 // THE ENGINE — EXPLODED TOPOLOGY]</span>
+            <span>[02 // THE ENGINE]</span>
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mt-1">
+          <h2 className="text-xl md:text-2xl font-bold tracking-tight mt-0.5">
             FIRST-PRINCIPLES STACK
           </h2>
         </div>
@@ -272,42 +311,42 @@ function EngineSection() {
                 setActiveEngineTier(idx);
                 soundEngine.triggerPing(520 + idx * 140);
               }}
-              className={`glass-chip w-full p-4 text-left transition duration-200 cursor-pointer flex items-center justify-between ${
+              className={`glass-chip w-full px-4 py-2.5 text-left transition duration-200 cursor-pointer flex items-center justify-between gap-3 ${
                 isSelected ? 'border-[#FF5500] bg-[#FF5500]/15' : 'hover:border-white/30'
               }`}
             >
-              <div>
-                <div className="font-mono text-[10px] tracking-[0.2em] text-[#A6E1FA]">
+              <div className="min-w-0">
+                <div className="font-mono text-[9px] tracking-[0.2em] text-[#A6E1FA]">
                   {tier.tierIndex}
                 </div>
-                <div className="font-bold text-sm text-[#F2EFE9] mt-0.5">{tier.name}</div>
+                <div className="font-bold text-xs text-[#F2EFE9] truncate">{tier.name}</div>
               </div>
-              <Cpu className={`w-4 h-4 ${isSelected ? 'text-[#FF5500]' : 'text-[#7E828E]'}`} />
+              <Cpu className={`w-4 h-4 shrink-0 ${isSelected ? 'text-[#FF5500]' : 'text-[#7E828E]'}`} />
             </button>
           );
         })}
       </div>
 
-      {/* Right active tier readout */}
+      {/* Right: active tier readout */}
       <div
         data-ui
         aria-live="polite"
-        className="glass-strong border-[#A6E1FA]/25 lg:col-span-7 p-6 pointer-events-auto space-y-4"
+        className="glass-strong border-[#A6E1FA]/25 lg:col-span-8 p-4 pointer-events-auto space-y-3"
       >
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2">
           <span className="font-mono text-xs tracking-[0.2em] text-[#FF5500]">
             {currentTier.tierIndex} // ACTIVE DIAGNOSTIC
           </span>
-          <span className="font-mono text-[10px] tracking-[0.15em] text-[#7E828E]">
+          <span className="font-mono text-[10px] tracking-[0.15em] text-[#7E828E] text-right">
             {currentTier.subtitle}
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           {currentTier.nodes.map((node) => (
             <div
               key={node.label}
-              className="p-3.5 border border-white/10 bg-[#121318]/90 space-y-1.5"
+              className="p-3 border border-white/10 bg-[#121318]/90 space-y-1"
             >
               <div className="font-mono text-[10px] tracking-[0.2em] text-[#A6E1FA]">
                 [{node.metric}]
@@ -340,7 +379,7 @@ function ChronologySection() {
       <div
         data-ui
         aria-live="polite"
-        className="glass-strong border-white/15 max-w-xl p-7 pointer-events-auto space-y-3"
+        className="glass-strong border-white/15 max-w-xl p-5 pointer-events-auto space-y-2.5"
       >
         <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em]">
           <span className="text-[#FF5500] flex items-center gap-2">
@@ -350,7 +389,7 @@ function ChronologySection() {
           <span className="text-[#A6E1FA]">{currentMilestone.year}</span>
         </div>
 
-        <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-[#F2EFE9]">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#F2EFE9]">
           {currentMilestone.title}
         </h2>
 

@@ -11,8 +11,8 @@ import { isUiTarget, noRaycast, fitBox } from '@/utils/spatialGuards';
 
 /* ───────────────────────── Tunables ───────────────────────── */
 const STAGE_T = 0.5;                  // camera progress at Stage 02
-const FULL_RANGE = 0.34;              // fully present within this distance of the stage
-const FADE_RANGE = 0.12;              // then shrinks away over this extra distance
+const FULL_RANGE = 0.12;              // fully present within this distance of the stage
+const FADE_RANGE = 0.1;              // then shrinks away over this extra distance
 const ROOT_POS: [number, number, number] = [-1.2, 2.0, -20.0];
 const SCAN_PERIOD = 5.5;              // seconds per scanner sweep
 const SPAN = Math.max(...ENGINE_TIERS.map((t) => Math.abs(t.yOffset)), 1.5) * 1.1 + 0.8;

@@ -18,7 +18,7 @@ export const ENGINE_TIERS: EngineTierSpec[] = [
     tierIndex: 'TIER 01 // TOP',
     name: 'PRESENTATION & SPATIAL UI LAYER',
     subtitle: 'REACT / NEXT.JS / REACT NATIVE / EXPO / WEBGL SHADERS',
-    yOffset: 2.3,
+    yOffset: 1.5,
     color: '#A6E1FA',
     nodes: [
       {
@@ -63,9 +63,9 @@ export const ENGINE_TIERS: EngineTierSpec[] = [
       },
       {
         label: 'Algorithmic & LLD Rigor',
-        metric: '500+ SOLVED',
+        metric: '400+ SOLVED',
         detail:
-          'Native C++ competitive programming (Global Rank 138, CodeChef Starters 196), dynamic programming, trees, and OOP low-level design.',
+          'Native C++ problem solving: 400+ DSA problems solved and a 100+ day streak on Codeforces and other platforms, across dynamic programming, trees, graphs and OOP low-level design.',
       },
     ],
   },
@@ -74,8 +74,8 @@ export const ENGINE_TIERS: EngineTierSpec[] = [
     tierIndex: 'TIER 03 // BASE',
     name: 'PERSISTENCE, INDEXING & VECTOR STORAGE',
     subtitle: 'POSTGRESQL RLS / MONGODB / FAISS VECTOR INDEX / MYSQL',
-    yOffset: -2.3,
-    color: '#F2EFE9',
+    yOffset: -1.5,
+    color: '#CFCABE',
     nodes: [
       {
         label: 'Query & Index Optimization',
@@ -121,7 +121,7 @@ export const CHRONOLOGY_MILESTONES: ChronologyNode[] = [
     category: 'CAREER',
     accent: '#FF5500',
     description:
-      'Rebuilding UniLink as an open platform for every college: anyone can create a group, only the group owner can write attendance, marks and materials, and connected students can chat directly. A phased rebuild on Expo, Supabase RLS and TanStack Query with proper HLD and LLD, alongside deepening C++ algorithms and GATE CS & Data Science/AI preparation.',
+      'Rebuilding UniLink as an open platform for every college: anyone can create a group, only the owner can write attendance, marks and materials, and connected students can chat directly. Built on Expo, Supabase RLS and TanStack Query, alongside C++ DSA and GATE CS/DA prep.',
   },
   {
     id: 'troywings-2026',
@@ -135,15 +135,15 @@ export const CHRONOLOGY_MILESTONES: ChronologyNode[] = [
       'Built full-stack user management for a talent platform on ASP.NET Core MVC and C#: responsive Razor UI, backend APIs, secure authentication workflows and real-time profile updates with AJAX and MongoDB. Designed MongoDB indexes across the login, profile and file services, and traced duplicate-index and missing-profile data issues to their root cause.',
   },
   {
-    id: 'codechef-2025',
-    year: 'SEP 2025',
-    code: 'NODE.03 // COMPETITIVE PROGRAMMING',
-    title: 'GLOBAL RANK 138 // CODECHEF',
-    organization: '500+ PROBLEMS ACROSS LEETCODE, CODECHEF & GFG',
+    id: 'dsa-ongoing',
+    year: 'ONGOING',
+    code: 'NODE.03 // PROBLEM SOLVING',
+    title: '500+ DSA // 100+ DAY STREAK',
+    organization: 'CODEFORCES, LEETCODE & MORE',
     category: 'ACHIEVEMENT',
     accent: '#FF5500',
     description:
-      'Secured Global Rank 138 in CodeChef Starters 196, writing native C++ across dynamic programming, trees and graphs. Also built a custom HTML5 Canvas Bezier-curve spring-damper physics simulation driven by Hooke’s Law.',
+      'Solved 400+ DSA problems in native C++ across dynamic programming, trees and graphs, and kept a 100+ day solving streak on Codeforces and other platforms. Also built a custom HTML5 Canvas Bezier-curve spring-damper simulation driven by Hooke’s Law.',
   },
   {
     id: 'caset-2024',

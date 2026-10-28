@@ -11,7 +11,7 @@ import { isUiTarget, noRaycast, fitBox } from '@/utils/spatialGuards';
 
 /* ───────────────────────── Tunables ───────────────────────── */
 const STAGE_T = 0.75;
-const FULL_RANGE = 0.34;
+const FULL_RANGE = 0.14;
 const FADE_RANGE = 0.12;
 const ROOT_POS: [number, number, number] = [0, 12, -41.5];
 const STRING_HALF = 4.5;      // half-length of each vertical time-string

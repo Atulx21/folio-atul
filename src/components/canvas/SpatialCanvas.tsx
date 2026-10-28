@@ -1,10 +1,35 @@
 'use client';
 
-import { Suspense, useEffect, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Stars, Sparkles, PerformanceMonitor, Environment, Lightformer } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette, Noise } from '@react-three/postprocessing';
+import type { VignetteEffect } from 'postprocessing';
+import * as THREE from 'three';
 import CameraRig from './CameraRig';
+import { useSpatialStore } from '@/store/useSpatialStore';
+
+/* Post-processing lives in its own component so it can animate the vignette per frame. */
+function PostFX() {
+  const vignette = useRef<VignetteEffect>(null);
+
+  useFrame(() => {
+    const v = vignette.current;
+    if (!v) return;
+    // The vignette fades away while the alabaster iris opens (camera progress 0.84 -> 0.98)
+    const t = useSpatialStore.getState().cameraProgress;
+    const open = THREE.MathUtils.smoothstep(t, 0.84, 0.98);
+    v.darkness = THREE.MathUtils.lerp(0.85, 0.3, open);
+  });
+
+  return (
+    <EffectComposer enableNormalPass={false} multisampling={0}>
+      <Bloom luminanceThreshold={0.75} mipmapBlur intensity={1.1} radius={0.6} />
+      <Noise opacity={0.035} />
+      <Vignette ref={vignette} eskil={false} offset={0.15} darkness={0.85} />
+    </EffectComposer>
+  );
+}
 
 export default function SpatialCanvas() {
   const [eventSource, setEventSource] = useState<HTMLElement | null>(null);
@@ -57,17 +82,7 @@ export default function SpatialCanvas() {
           <Stars radius={80} depth={60} count={3500} factor={3} saturation={0} fade speed={0.6} />
           <Sparkles count={400} scale={[30, 30, 80]} position={[0, 0, -25]} size={1.4} speed={0.2} color="#FF5500" opacity={0.35} />
 
-          {/* Cinematic Post-Processing Pipeline */}
-          <EffectComposer enableNormalPass={false} multisampling={0}>
-            <Bloom
-              luminanceThreshold={0.75}
-              mipmapBlur
-              intensity={1.1}
-              radius={0.6}
-            />
-            <Noise opacity={0.035} />
-            <Vignette eskil={false} offset={0.15} darkness={0.85} />
-          </EffectComposer>
+          <PostFX />
         </Suspense>
       </Canvas>
     </div>

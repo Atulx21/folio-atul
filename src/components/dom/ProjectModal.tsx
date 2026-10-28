@@ -289,10 +289,14 @@ function ModalShell({ project }: { project: ProjectSpec }) {
                 SYSTEM DEEP DIVE
               </h3>
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                {project.deepDive.map((section) => (
+                                {project.deepDive.map((section, i) => (
                   <div
                     key={section.title}
-                    className="space-y-2 border border-white/10 bg-[#121318]/60 p-3.5"
+                    className={`space-y-2 border border-white/10 bg-[#121318]/60 p-3.5 ${
+                      i === project.deepDive.length - 1 && project.deepDive.length % 2 === 1
+                        ? 'sm:col-span-2'
+                        : ''
+                    }`}
                   >
                     <div className="font-mono text-[10px] tracking-[0.22em] text-[#A6E1FA]">
                       {section.title}

@@ -23,7 +23,7 @@ export default function CameraRig() {
     const camPts = [
       new THREE.Vector3(0, 0, 14.5),      // t = 0.00 -> Stage 00: Singularity (Hero)
       new THREE.Vector3(4.8, -2.5, 3.2),  // t = 0.25 -> Stage 01: The Archive (Directly facing the 4 Monoliths)
-      new THREE.Vector3(-1.2, 2.8, -11.5),// t = 0.50 -> Stage 02: The Engine (Facing the 3-Tier Topology)
+      new THREE.Vector3(-1.2, 1.5, -8.5),  // t = 0.50 -> Stage 02: The Engine (Facing the 3-Tier Topology)
       new THREE.Vector3(0, 12, -32.5),    // t = 0.75 -> Stage 03: Chronology (Facing the Tesseract Timeline)
       new THREE.Vector3(0, 0, -52.5),     // t = 1.00 -> Stage 04: Event Horizon (Facing the Chrome Ripple Sanctuary)
     ];
@@ -31,7 +31,7 @@ export default function CameraRig() {
     const lookPts = [
       new THREE.Vector3(0, 0, 0),         // Stage 00 Target
       new THREE.Vector3(4.8, -2.8, -4.2), // Stage 01 Target (Center of the 4 Helical Monoliths)
-      new THREE.Vector3(-1.2, 2.0, -20.0),// Stage 02 Target (Center of the 3-Tier Engine)
+      new THREE.Vector3(-1.2, 0.9, -20.0), // Stage 02 Target (Center of the 3-Tier Engine)
       new THREE.Vector3(0, 12, -41.5),    // Stage 03 Target (Center of the 5 Tesseract Pillars)
       new THREE.Vector3(0, 0, -62),       // Stage 04 Target (Center of the Event Horizon Portal)
     ];
@@ -77,7 +77,7 @@ export default function CameraRig() {
     // 4. INCEPTION HALLWAY ROLL: stored separately and applied AFTER lookAt
     //    (lookAt overwrites rotation every frame, so roll can't live on rotation.z)
     const rollInfluence = THREE.MathUtils.smoothstep(1 - Math.abs(t - 0.75) * 5, 0, 1);
-    roll.current = THREE.MathUtils.damp(roll.current, rollInfluence * (Math.PI * 0.18), 4, dt);
+    roll.current = THREE.MathUtils.damp(roll.current, rollInfluence * (Math.PI * 0.13), 4, dt);
     state.camera.rotateZ(roll.current);
 
     // 5. VELOCITY FOV WARP: soft-saturating (no hard clamp), only updates projection when changed
