@@ -16,7 +16,7 @@ const IRIS_START = 0.8;        // camera progress where the iris starts opening
 const IRIS_END = 0.98;
 const IRIS_MAX_RADIUS = 30;    // big enough to cover ultra-wide screens even with the FOV warp
 const DISC_Z = -6;             // sanctuary disc depth behind the torus (local to PORTAL_Z)
-const SANCTUARY_LUMA = 0.9;    // alabaster brightness (keep < ~0.85 so Bloom doesn't white out the screen)
+const SANCTUARY_LUMA = 0.78;    // alabaster brightness (keep < ~0.85 so Bloom doesn't white out the screen)
 
 /* ───────────────────────── Shaders ───────────────────────── */
 const RIPPLE_VERTEX_SHADER = /* glsl */ `

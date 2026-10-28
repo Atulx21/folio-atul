@@ -8,6 +8,7 @@ import type { VignetteEffect } from 'postprocessing';
 import * as THREE from 'three';
 import CameraRig from './CameraRig';
 import { useSpatialStore } from '@/store/useSpatialStore';
+import GalaxyBackdrop from './GalaxyBackdrop';
 
 /* Post-processing lives in its own component so it can animate the vignette per frame. */
 function PostFX() {
@@ -76,10 +77,9 @@ export default function SpatialCanvas() {
             <Lightformer form="rect" intensity={1.6} color="#A6E1FA" position={[8, 2, -6]} rotation-y={-Math.PI / 2} scale={[10, 3, 1]} />
           </Environment>
 
-          <CameraRig />
-
-          {/* Deep Space Particulate Field */}
-          <Stars radius={80} depth={60} count={3500} factor={3} saturation={0} fade speed={0.6} />
+                   <CameraRig />
+          <GalaxyBackdrop />
+          <Stars radius={80} depth={60} count={1800} factor={3} saturation={0} fade speed={0.6} />
           <Sparkles count={400} scale={[30, 30, 80]} position={[0, 0, -25]} size={1.4} speed={0.2} color="#FF5500" opacity={0.35} />
 
           <PostFX />

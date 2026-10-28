@@ -35,6 +35,7 @@ interface SpatialState {
   isTransmitting: boolean;
   transmissionComplete: boolean;
   sceneReady: boolean;
+  profileOpen: boolean;
 
   setActiveStage: (stage: number) => void;
   toggleAudio: () => void;
@@ -46,6 +47,7 @@ interface SpatialState {
   triggerTransmission: () => void;
   resetTransmission: () => void;
   setSceneReady: () => void;
+  setProfileOpen: (open: boolean) => void;
 }
 
 // Module-level so reset/re-trigger can cancel a pending completion
@@ -68,8 +70,10 @@ export const useSpatialStore = create<SpatialState>((set, get) => ({
   isTransmitting: false,
   transmissionComplete: false,
   sceneReady: false,
+  profileOpen: false,
 
   setActiveStage: (stage) => set((state) => (state.activeStage !== stage ? { activeStage: stage } : state)),
+  setProfileOpen: (open) => set({ profileOpen: open }),
   setSceneReady: () => set((state) => (state.sceneReady ? state : { sceneReady: true })),
   toggleAudio: () => set((state) => ({ isAudioMuted: !state.isAudioMuted })),
   setHoveredProject: (id) => set((state) => (state.hoveredProjectId !== id ? { hoveredProjectId: id } : state)),

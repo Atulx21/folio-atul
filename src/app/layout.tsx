@@ -13,11 +13,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const TITLE = "Atul Parmar — Full-Stack & Creative Graphics Engineer";
+const TITLE = "Atul Parmar — Full-Stack Software Engineer";
 const DESCRIPTION =
-  "Full-stack systems and creative graphics engineer building high-concurrency architectures, AI vector pipelines and physics-driven spatial interfaces.";
+  "Computer Science graduate from IIIT Guwahati and full-stack software engineer building web and cross-platform mobile apps with React, React Native, Node.js and Supabase. Explore UniLink, AI-Tutor, MoodTunes and RozgarConnect.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://atul-folio.vercel.app"),
   title: TITLE,
   description: DESCRIPTION,
   authors: [{ name: "Atul Parmar" }],
@@ -25,17 +26,20 @@ export const metadata: Metadata = {
     "Atul Parmar",
     "Full-Stack Developer",
     "Software Engineer",
-    "React Three Fiber",
+    "React",
+    "React Native",
     "Next.js",
-    "Portfolio",
+    "IIIT Guwahati",
   ],
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
     type: "website",
+    url: "/",
+    siteName: "Atul Parmar",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
   },
@@ -48,13 +52,40 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Atul Parmar",
+  jobTitle: "Full-Stack Software Engineer",
+  url: "https://atul-folio.vercel.app",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Indian Institute of Information Technology, Guwahati",
+  },
+  sameAs: [
+    "https://github.com/Atulx21",
+    "https://www.linkedin.com/in/atul-parmar/",
+    "https://leetcode.com/u/Atul_Parmar_21/",
+  ],
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${jetbrainsMono.variable} antialiased`}
     >
-      <body className="min-h-screen">{children}</body>
+      <body className="min-h-screen">
+        {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </body>
     </html>
   );
 }

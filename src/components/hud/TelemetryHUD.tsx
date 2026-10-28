@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { STAGES, useSpatialStore } from '@/store/useSpatialStore';
-import { Volume2, VolumeX, Compass, Cpu } from 'lucide-react';
+import { Volume2, VolumeX, Compass, Cpu, User } from 'lucide-react';
 import { soundEngine } from '@/utils/soundEngine';
 import type Lenis from 'lenis';
 
@@ -22,6 +22,7 @@ export default function TelemetryHUD() {
   const activeStage = useSpatialStore((s) => s.activeStage);
   const isAudioMuted = useSpatialStore((s) => s.isAudioMuted);
   const toggleAudio = useSpatialStore((s) => s.toggleAudio);
+  const setProfileOpen = useSpatialStore((s) => s.setProfileOpen);
 
   // Direct DOM refs: high-frequency telemetry without React re-renders
   const coordRef = useRef<HTMLSpanElement>(null);
@@ -231,7 +232,7 @@ export default function TelemetryHUD() {
       {/* Structural 1px architectural hairline frame */}
       <div className="fixed inset-4 md:inset-6 border border-white/[0.07] pointer-events-none z-30 flex flex-col justify-between">
         {/* TOP BAR */}
-        <header className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07] bg-[#050507]/60 backdrop-blur-[6px] pointer-events-auto">
+        <header className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] pointer-events-auto">
           <div className="flex items-center gap-3">
             <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-pulse" />
             <span className="font-mono text-xs tracking-[0.25em] text-[#F2EFE9] uppercase">
@@ -261,25 +262,40 @@ export default function TelemetryHUD() {
             })}
           </nav>
 
-          {/* Audio toggle */}
-          <button
-            type="button"
-            aria-pressed={!isAudioMuted}
-            onClick={handleAudioToggle}
-            className="flex items-center gap-2 px-3 py-1.5 border border-white/10 bg-white/[0.02] hover:border-[#FF5500]/50 transition-colors font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] cursor-pointer"
-          >
-            {isAudioMuted ? (
-              <>
-                <VolumeX className="w-3.5 h-3.5 text-[#7E828E]" />
-                <span>AUDIO // OFF</span>
-              </>
-            ) : (
-              <>
-                <Volume2 className="w-3.5 h-3.5 text-[#FF5500]" />
-                <span>HZ DRONE // ON</span>
-              </>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            {/* Profile Button */}
+            <button
+              type="button"
+              onClick={() => {
+                soundEngine.triggerPing(660);
+                setProfileOpen(true);
+              }}
+              className="flex items-center gap-2 border border-[#FF5500]/50 bg-[#FF5500]/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/20 cursor-pointer"
+            >
+              <User className="h-3.5 w-3.5 text-[#FF5500]" />
+              <span>PROFILE</span>
+            </button>
+            
+            {/* Audio toggle */}
+            <button
+              type="button"
+              aria-pressed={!isAudioMuted}
+              onClick={handleAudioToggle}
+              className="flex items-center gap-2 px-3 py-1.5 border border-white/10 bg-white/[0.02] hover:border-[#FF5500]/50 transition-colors font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] cursor-pointer"
+            >
+              {isAudioMuted ? (
+                <>
+                  <VolumeX className="w-3.5 h-3.5 text-[#7E828E]" />
+                  <span>AUDIO // OFF</span>
+                </>
+              ) : (
+                <>
+                  <Volume2 className="w-3.5 h-3.5 text-[#FF5500]" />
+                  <span>HZ DRONE // ON</span>
+                </>
+              )}
+            </button>
+          </div>
         </header>
 
         {/* RIGHT-EDGE SPATIAL TIME SCRUBBER: track, live fill, clickable stage ticks */}
@@ -315,7 +331,7 @@ export default function TelemetryHUD() {
         </div>
 
         {/* BOTTOM TELEMETRY READOUT BAR */}
-        <footer className="flex flex-wrap items-center justify-between px-5 py-3 border-t border-white/[0.07] bg-[#050507]/60 backdrop-blur-[6px] font-mono text-[10px] tracking-[0.18em] text-[#7E828E]">
+        <footer className="flex flex-wrap items-center justify-between px-5 py-3 border-t border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] font-mono text-[10px] tracking-[0.18em] text-[#7E828E]">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <Compass className="w-3.5 h-3.5 text-[#A6E1FA]" />

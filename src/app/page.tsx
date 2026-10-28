@@ -25,6 +25,8 @@ import {
   ArrowDown,
 } from 'lucide-react';
 import Lenis from 'lenis';
+import ProfilePanel from '@/components/dom/ProfilePanel';
+import { HERO_STACK } from '@/data/profileData';
 
 // Dynamically import the WebGL Canvas so it strictly executes on the client GPU
 const SpatialCanvas = dynamic(() => import('@/components/canvas/SpatialCanvas'), {
@@ -165,6 +167,8 @@ const scrollToStage = (stage: number) => {
 };
 
 function HeroSection() {
+  const setProfileOpen = useSpatialStore((s) => s.setProfileOpen);
+  
   return (
     <Stage
       index={0}
@@ -188,6 +192,17 @@ function HeroSection() {
       <div className="flex flex-wrap items-center gap-3 pt-2">
         <button
           type="button"
+          onClick={() => {
+            soundEngine.triggerPing(660);
+            setProfileOpen(true);
+          }}
+          className="flex cursor-pointer items-center gap-2 border border-[#FF5500] bg-[#FF5500]/10 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/25"
+        >
+          <span>FULL PROFILE</span>
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </button>
+        <button
+          type="button"
           onClick={() => scrollToStage(1)}
           className="flex cursor-pointer items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9]"
         >
@@ -204,6 +219,16 @@ function HeroSection() {
           <span>RESUME</span>
         </a>
       </div>
+      <ul aria-label="Core tech stack" className="flex max-w-2xl flex-wrap gap-1.5 pt-1">
+        {HERO_STACK.map((t) => (
+          <li
+            key={t}
+            className="border border-white/10 bg-[#050507]/60 px-2.5 py-1 font-mono text-[10px] tracking-wider text-[#A6E1FA]"
+          >
+            {t}
+          </li>
+        ))}
+      </ul>
     </Stage>
   );
 }
@@ -421,7 +446,7 @@ function ChronologySection() {
               }`}
             >
               <div className="font-mono text-[9px] text-[#A6E1FA] truncate">{item.year}</div>
-              <div className="font-bold text-xs text-[#F2EFE9] truncate mt-1">{item.title}</div>
+              <div className="font-bold text-xs text-[#F2EFE9] mt-1 leading-tight line-clamp-2">{item.title}</div>
             </button>
           );
         })}
@@ -683,6 +708,8 @@ export default function PortfolioSpatialEngine() {
 
       {/* 3. Deep-dive project case-study portal */}
       <ProjectModal />
+
+      <ProfilePanel />
 
       {/* 4. Synchronized 5-stage scroll track (500vh; stage k <-> scroll progress k/4) */}
       <main className="relative z-10 pointer-events-none text-[#F2EFE9] selection:bg-[#FF5500] selection:text-[#050507]">

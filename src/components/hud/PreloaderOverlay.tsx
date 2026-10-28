@@ -158,10 +158,10 @@ export default function PreloaderOverlay() {
         }`}
       >
         <div className="font-mono text-[10px] tracking-[0.25em] text-[#7E828E]">
-          ATUL GOPAL PARMAR // FULL-STACK & GRAPHICS ARCHITECTURE
+          ATUL PARMAR // FULL-STACK SOFTWARE ENGINEER
         </div>
         <div className="font-mono text-[10px] tracking-[0.25em] text-[#A6E1FA]">
-          [WEBGL2 // 35,000 PARTICLES // 60-120 HZ]
+          [WEBGL2 // 70,000 STARS // 60-120 HZ]
         </div>
       </div>
     </div>
