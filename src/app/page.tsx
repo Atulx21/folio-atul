@@ -1,5 +1,6 @@
 'use client';
 
+import AvailabilityBadge from '@/components/dom/AvailabilityBadge';
 import { useEffect, useState, FormEvent, ReactNode, ComponentType } from 'react';
 import dynamic from 'next/dynamic';
 import SmoothScroll from '@/components/dom/SmoothScroll';
@@ -167,6 +168,9 @@ function HeroSection() {
       contentClassName="max-w-4xl space-y-6 pointer-events-auto"
       backdrop={<div className="hero-scrim" aria-hidden />}
     >
+      {/* ─── ADDED: Availability Badge in Hero ─── */}
+      {/* <AvailabilityBadge /> */}
+
       <p className="font-mono text-xs tracking-[0.35em] text-[#FF5500] uppercase">
         [00 // SINGULARITY — NON-LINEAR SPATIAL PORTFOLIO]
       </p>
@@ -516,6 +520,9 @@ function ContactSection() {
           <p className="text-xs text-[#7E828E] leading-relaxed mt-2">
             Type inside the transmission console to dispatch real-time wave impulses into the Event Horizon shader field.
           </p>
+
+          {/* ─── ADDED: Availability Badge in Contact Section ─── */}
+          <AvailabilityBadge className="mt-3" />
         </div>
 
         <div className="space-y-3 font-mono text-xs">

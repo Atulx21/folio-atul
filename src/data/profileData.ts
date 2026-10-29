@@ -136,4 +136,11 @@ export const ACHIEVEMENTS: AchievementItem[] = [
     title: 'Spring-damper physics simulation',
     detail: 'Custom HTML5 Canvas Bezier-curve simulation driven by Hooke’s Law.',
   },
+
+  
 ];
+
+export const AVAILABILITY = {
+  status: 'OPEN TO OPPORTUNITIES',
+  detail: 'Full-Time Software Engineer & Full-Stack Roles · Open to Relocation',
+} as const;

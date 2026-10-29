@@ -1,5 +1,6 @@
 'use client';
 
+import AvailabilityBadge from '@/components/dom/AvailabilityBadge';
 import { ComponentType, ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import {
   X,
@@ -22,6 +23,7 @@ import {
   EXPERIENCE,
   EDUCATION,
   ACHIEVEMENTS,
+  AVAILABILITY,
 } from '@/data/profileData';
 import { PROJECTS_ARCHIVE } from '@/data/projectsData';
 import { useSpatialStore } from '@/store/useSpatialStore';
@@ -81,6 +83,7 @@ function ProfileSeo() {
       <h2>
         {PROFILE.name} — {PROFILE.title}
       </h2>
+      <p>{AVAILABILITY.status}: {AVAILABILITY.detail}</p>
       <p>{PROFILE.summary.join(' ')}</p>
       <h3>Tech stack</h3>
       {SKILL_GROUPS.map((g) => (
@@ -235,6 +238,10 @@ function ProfileShell() {
               <p className="mt-1 font-mono text-xs uppercase tracking-[0.3em] text-[#FF5500]">
                 {PROFILE.title}
               </p>
+              
+              {/* ─── ADDED: Availability Badge in Profile Panel ─── */}
+              <AvailabilityBadge className="mt-4" />
+
               <div className="mt-4 max-w-3xl space-y-3 text-sm leading-relaxed text-[#F2EFE9]/85 md:text-base">
                 {PROFILE.summary.map((p) => (
                   <p key={p}>{p}</p>
