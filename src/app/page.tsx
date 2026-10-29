@@ -38,7 +38,7 @@ const SpatialCanvas = dynamic(() => import('@/components/canvas/SpatialCanvas'),
       form really sends. Restart `npm run dev` after changing env files.
    2. Fill in LINKEDIN_URL and CONTACT_EMAIL. Empty values are hidden, not shown broken.
    With no endpoint, the form falls back to opening the visitor's mail app (needs CONTACT_EMAIL). */
-const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? '';
+// const FORM_ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT ?? '';
 const CONTACT_EMAIL = 'atulparmar0021@gmail.com';
 const LINKEDIN_URL = 'https://www.linkedin.com/in/atul-parmar/';
 const RESUME_URL = 'https://drive.google.com/file/d/1C_2MMx7_-6ZxacXWuX2dqA-kJuSRlTnW/view?usp=drive_link';
@@ -108,22 +108,12 @@ const CHANNELS: Channel[] = [
 type ContactPayload = { name: string; email: string; message: string };
 
 async function sendMessage(payload: ContactPayload) {
-  if (FORM_ENDPOINT) {
-    const res = await fetch(FORM_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`Form endpoint responded ${res.status}`);
-    return;
-  }
-  if (CONTACT_EMAIL) {
-    const subject = encodeURIComponent(`Portfolio inquiry from ${payload.name}`);
-    const body = encodeURIComponent(`${payload.message}\n\n— ${payload.name} (${payload.email})`);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    return;
-  }
-  throw new Error('No contact channel configured (set NEXT_PUBLIC_FORM_ENDPOINT or CONTACT_EMAIL).');
+  const res = await fetch('/api/contact', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`Contact API responded ${res.status}`);
 }
 
 /* ───────────────────────── Stage shell ─────────────────────────
