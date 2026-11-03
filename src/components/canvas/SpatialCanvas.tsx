@@ -32,7 +32,7 @@ function PostFX() {
   );
 }
 
-export default function SpatialCanvas() {
+export default function SpatialCanvas({ onFail }: { onFail?: () => void }) {
   const [eventSource, setEventSource] = useState<HTMLElement | null>(null);
   const [dpr, setDpr] = useState(1.25);
 
@@ -52,6 +52,31 @@ export default function SpatialCanvas() {
           alpha: false,
         }}
         camera={{ position: [0, 0, 14.5], fov: 45, near: 0.1, far: 200 }}
+        onCreated={({ gl }) => {
+          if (!onFail) return;
+          let lostTimer: ReturnType<typeof setTimeout> | null = null;
+
+          const handleLost = (e: Event) => {
+            e.preventDefault();
+            // Give the browser 3 s to restore before giving up
+            lostTimer = setTimeout(() => {
+              console.warn('[SpatialCanvas] webglcontextlost — falling back');
+              onFail();
+            }, 3000);
+          };
+
+          const handleRestored = () => {
+            if (lostTimer !== null) {
+              clearTimeout(lostTimer);
+              lostTimer = null;
+            }
+          };
+
+          gl.domElement.addEventListener('webglcontextlost', handleLost);
+          gl.domElement.addEventListener('webglcontextrestored', handleRestored);
+
+          // Cleanup handled by the Canvas unmount (component unmounts => listeners garbage-collected)
+        }}
       >
         {/* Scales resolution between 1x and 1.5x based on measured FPS */}
         <PerformanceMonitor

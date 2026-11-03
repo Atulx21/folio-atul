@@ -2,7 +2,6 @@
 
 import AvailabilityBadge from '@/components/dom/AvailabilityBadge';
 import { useEffect, useState, FormEvent, ReactNode, ComponentType } from 'react';
-import dynamic from 'next/dynamic';
 import SmoothScroll from '@/components/dom/SmoothScroll';
 import TelemetryHUD from '@/components/hud/TelemetryHUD';
 import PreloaderOverlay from '@/components/hud/PreloaderOverlay';
@@ -28,11 +27,8 @@ import {
 import Lenis from 'lenis';
 import ProfilePanel from '@/components/dom/ProfilePanel';
 import { HERO_STACK } from '@/data/profileData';
-
-// Dynamically import the WebGL Canvas so it strictly executes on the client GPU
-const SpatialCanvas = dynamic(() => import('@/components/canvas/SpatialCanvas'), {
-  ssr: false,
-});
+import CanvasGate from '@/components/canvas/CanvasGate';
+import StaticPortfolio from '@/components/dom/StaticPortfolio';
 
 /* ───────────────────────── Contact configuration ─────────────────────────
    1. Set NEXT_PUBLIC_FORM_ENDPOINT in .env.local (e.g. a Formspree URL) so the
@@ -683,8 +679,27 @@ function ContactSection() {
   );
 }
 
+/* ───────────────────────── Device / WebGL detection ───────────────────────── */
+function getDeviceProfile(): { hasWebGL: boolean } {
+  try {
+    const canvas = document.createElement('canvas');
+    const gl =
+      canvas.getContext('webgl2') ??
+      canvas.getContext('webgl') ??
+      canvas.getContext('experimental-webgl');
+    return { hasWebGL: !!gl };
+  } catch {
+    return { hasWebGL: false };
+  }
+}
+
+type Mode = 'pending' | 'webgl' | 'static';
+
 /* ───────────────────────── Page ───────────────────────── */
 export default function PortfolioSpatialEngine() {
+  const [mode, setMode] = useState<Mode>('pending');
+  const [hasWebGL, setHasWebGL] = useState(false);
+
   // Always start at the hero: a restored mid-page scroll would put the content
   // and the 3D camera out of sync with the stage state on reload.
   useEffect(() => {
@@ -692,13 +707,49 @@ export default function PortfolioSpatialEngine() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const profile = getDeviceProfile();
+    setHasWebGL(profile.hasWebGL);
+
+    // Check for ?static=1 query param
+    const params = new URLSearchParams(window.location.search);
+    const forceStatic = params.get('static') === '1';
+
+    let simpleView = false;
+    try {
+      simpleView = localStorage.getItem('portfolio:view') === 'simple';
+    } catch { /* ignore – private browsing etc. */ }
+
+    if (!forceStatic && profile.hasWebGL && !simpleView) {
+      setMode('webgl');
+    } else {
+      setMode('static');
+    }
+  }, []);
+
+  // ── Pending: dark background only ──
+  if (mode === 'pending') {
+    return <div className="fixed inset-0 bg-[#050507]" aria-hidden />;
+  }
+
+  // ── Static mode ──
+  if (mode === 'static') {
+    return (
+      <>
+        <StaticPortfolio hasWebGL={hasWebGL} />
+        <ProjectModal />
+      </>
+    );
+  }
+
+  // ── WebGL mode (unchanged tree) ──
   return (
     <SmoothScroll>
       {/* 0. Cinematic airlock preloader */}
       <PreloaderOverlay />
 
-      {/* 1. Persistent 3D WebGL engine */}
-      <SpatialCanvas />
+      {/* 1. Persistent 3D WebGL engine – guarded by error boundary */}
+      <CanvasGate onFail={() => setMode('static')} />
 
       {/* 2. Persistent telemetry HUD */}
       <TelemetryHUD />
