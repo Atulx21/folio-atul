@@ -37,6 +37,14 @@ body {
   background: var(--void);
   color: var(--alabaster);
   font-family: var(--font-sans);
+  overscroll-behavior: none;
+}
+
+/* Stage sections use h-svh; fall back to the classic viewport height where svh is unsupported */
+@supports not (height: 100svh) {
+  .h-svh {
+    height: 100vh;
+  }
 }
 
 ::selection {
@@ -195,5 +203,42 @@ html.lenis body {
   .modal-backdrop,
   .modal-panel {
     animation-duration: 0.01ms !important;
+  }
+}
+
+
+/* ───────────── Touch polish (no visual effect on mouse/trackpad devices) ───────────── */
+a,
+button,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: none) {
+  .hud-chrome {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}
+
+/* ───────────── Landscape phones (short + compact only; desktop never matches) ───────────── */
+@media (max-height: 520px) and (max-width: 1023.98px) {
+  .hud-ticker {
+    display: none;
+  }
+  .stage-sheet {
+    max-height: 58svh;
+  }
+  /* Hero stays fully reachable: smaller type, internal scroll if it still doesn't fit */
+  .hero-content {
+    max-height: calc(100svh - 9rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .hero-content h1 {
+    font-size: clamp(1.75rem, 7vw, 2.5rem);
+  }
+  .hero-content p {
+    font-size: 0.75rem;
   }
 }

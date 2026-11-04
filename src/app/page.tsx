@@ -136,10 +136,11 @@ function Stage({
     <section
       id={`stage-${index}`}
       aria-label={label}
-      className={`h-screen w-full ${className}`}
+      className={`h-svh w-full ${className}`}
     >
       {backdrop}
-      <div className={`stage-content ${contentClassName}`} data-active={active}>
+      {/* data-lenis-prevent-touch: compact sheets scroll natively on touch; wheel (desktop) is untouched */}
+      <div className={`stage-content ${contentClassName}`} data-active={active} data-lenis-prevent-touch>
         {children}
       </div>
     </section>
@@ -160,8 +161,8 @@ function HeroSection() {
     <Stage
       index={0}
       label="Singularity"
-      className="relative flex flex-col justify-center px-10 md:px-24"
-      contentClassName="max-w-4xl space-y-6 pointer-events-auto"
+      className="relative flex flex-col justify-center px-4 sm:px-6 md:px-10 lg:px-24 max-lg:justify-end max-lg:pb-[calc(6rem+env(safe-area-inset-bottom))]"
+      contentClassName="max-w-4xl space-y-6 pointer-events-auto max-lg:space-y-4 hero-content"
       backdrop={<div className="hero-scrim" aria-hidden />}
     >
       {/* ─── ADDED: Availability Badge in Hero ─── */}
@@ -170,23 +171,23 @@ function HeroSection() {
       <p className="font-mono text-xs tracking-[0.35em] text-[#FF5500] uppercase">
         [00 // SINGULARITY — NON-LINEAR SPATIAL PORTFOLIO]
       </p>
-      <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] font-extrabold tracking-tighter leading-[0.92] uppercase drop-shadow-[0_4px_30px_rgba(5,5,7,0.55)]">
+      <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] max-lg:text-[clamp(2.25rem,11vw,4rem)] font-extrabold tracking-tighter leading-[0.92] uppercase drop-shadow-[0_4px_30px_rgba(5,5,7,0.55)]">
         ATUL <br />
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F2EFE9] via-[#A6E1FA] to-[#FF5500]">
           PARMAR
         </span>
       </h1>
-      <p className="max-w-xl text-sm md:text-base text-[#7E828E] font-light leading-relaxed">
+      <p className="max-w-xl text-sm lg:text-base text-[#7E828E] font-light leading-relaxed">
         Computer Science graduate from IIIT Guwahati and Full-Stack Software Engineer. I specialize in architecting dynamic web and cross-platform mobile applications from concept to completion using React, React Native, and Node.js. Apply scroll thrust to enter the Tesseract.
       </p>
-      <div className="flex flex-wrap items-center gap-3 pt-2">
+      <div className="flex flex-wrap items-center gap-3 pt-2 max-sm:flex-col max-sm:items-stretch">
         <button
           type="button"
           onClick={() => {
             soundEngine.triggerPing(660);
             setProfileOpen(true);
           }}
-          className="flex cursor-pointer items-center gap-2 border border-[#FF5500] bg-[#FF5500]/10 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/25"
+          className="flex cursor-pointer items-center gap-2 border border-[#FF5500] bg-[#FF5500]/10 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/25 max-lg:min-h-11 max-sm:justify-center"
         >
           <span>FULL PROFILE</span>
           <ArrowUpRight className="h-3.5 w-3.5" />
@@ -194,7 +195,7 @@ function HeroSection() {
         <button
           type="button"
           onClick={() => scrollToStage(1)}
-          className="flex cursor-pointer items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9]"
+          className="flex cursor-pointer items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9] max-lg:min-h-11 max-sm:justify-center"
         >
           <span>VIEW SELECTED WORKS</span>
           <ArrowDown className="h-3.5 w-3.5" />
@@ -203,7 +204,7 @@ function HeroSection() {
           href="https://drive.google.com/file/d/1C_2MMx7_-6ZxacXWuX2dqA-kJuSRlTnW/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 border border-white/20 px-5 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:border-[#FF5500]"
+          className="flex items-center gap-2 border border-white/20 px-5 py-3 font-mono text-xs uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:border-[#FF5500] max-lg:min-h-11 max-sm:justify-center"
         >
           <FileText className="h-3.5 w-3.5 text-[#FF5500]" />
           <span>RESUME</span>
@@ -213,7 +214,7 @@ function HeroSection() {
         {HERO_STACK.map((t) => (
           <li
             key={t}
-            className="border border-white/10 bg-[#050507]/60 px-2.5 py-1 font-mono text-[10px] tracking-wider text-[#A6E1FA]"
+            className="border border-white/10 bg-[#050507]/60 px-2.5 py-1 font-mono text-[10px] tracking-wider text-[#A6E1FA] max-lg:[&:nth-child(n+9)]:hidden"
           >
             {t}
           </li>
@@ -233,10 +234,10 @@ function ArchiveSection() {
     <Stage
       index={1}
       label="The Archive"
-      className="flex flex-col justify-end pb-20 px-10 md:px-24"
-      contentClassName="w-full max-w-6xl mx-auto flex flex-col md:flex-row items-end justify-between gap-6"
+      className="flex flex-col justify-end pb-20 px-4 sm:px-6 md:px-10 lg:px-24 max-lg:pb-[calc(6rem+env(safe-area-inset-bottom))]"
+      contentClassName="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-end justify-between gap-6 max-lg:items-stretch max-lg:max-h-[46svh] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:overscroll-contain max-lg:pointer-events-auto stage-sheet"
     >
-      <div data-ui className="glass max-w-md p-6 pointer-events-auto space-y-2">
+      <div data-ui className="glass max-w-md p-6 pointer-events-auto space-y-2 max-lg:hidden">
         <span className="font-mono text-[10px] tracking-[0.25em] text-[#FF5500]">
           [01 // THE ARCHIVE — INTERACTIVE 3D MONOLITHS]
         </span>
@@ -249,7 +250,7 @@ function ArchiveSection() {
       </div>
 
       {/* Interactive synchronized monolith index dock */}
-      <div data-ui className="grid grid-cols-2 sm:grid-cols-4 gap-3 pointer-events-auto w-full md:w-auto">
+      <div data-ui className="grid grid-cols-2 sm:grid-cols-4 gap-3 pointer-events-auto w-full lg:w-auto max-lg:flex max-lg:overflow-x-auto max-lg:snap-x max-lg:overscroll-x-contain max-lg:pt-1 max-lg:pb-1">
         {PROJECTS_ARCHIVE.map((proj, idx) => {
           const isHovered = hoveredProjectId === proj.id;
           return (
@@ -267,7 +268,7 @@ function ArchiveSection() {
                 setSelectedProject(proj.id);
                 soundEngine.triggerPing(880);
               }}
-              className={`glass-chip p-4 text-left transition duration-200 cursor-pointer ${
+              className={`glass-chip p-4 text-left transition duration-200 cursor-pointer max-lg:w-[72vw] max-lg:max-w-xs max-lg:shrink-0 max-lg:snap-start ${
                 isHovered
                   ? 'border-[#FF5500] bg-[#FF5500]/15 -translate-y-1'
                   : 'hover:border-white/30'
@@ -299,12 +300,12 @@ function EngineSection() {
     <Stage
       index={2}
       label="The Engine"
-      className="flex flex-col justify-end pb-20 px-10 md:px-24"
-      contentClassName="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 items-end"
+      className="flex flex-col justify-end pb-20 px-4 sm:px-6 md:px-10 lg:px-24 max-lg:pb-[calc(6rem+env(safe-area-inset-bottom))]"
+      contentClassName="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 items-end max-lg:gap-2 max-lg:max-h-[46svh] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:overscroll-contain max-lg:pointer-events-auto stage-sheet"
     >
       {/* Left: compact title + tier selector */}
-      <div className="lg:col-span-4 space-y-2 pointer-events-auto">
-        <div data-ui className="glass px-4 py-3">
+      <div className="lg:col-span-4 space-y-2 pointer-events-auto max-lg:grid max-lg:grid-cols-3 max-lg:gap-1.5 max-lg:space-y-0">
+        <div data-ui className="glass px-4 py-3 max-lg:col-span-3 max-lg:px-3 max-lg:py-2">
           <span className="font-mono text-[10px] tracking-[0.25em] text-[#FF5500] flex items-center gap-2">
             <Layers className="w-3.5 h-3.5" />
             <span>[02 // THE ENGINE]</span>
@@ -325,7 +326,7 @@ function EngineSection() {
                 setActiveEngineTier(idx);
                 soundEngine.triggerPing(520 + idx * 140);
               }}
-              className={`glass-chip w-full px-4 py-2.5 text-left transition duration-200 cursor-pointer flex items-center justify-between gap-3 ${
+              className={`glass-chip w-full px-4 py-2.5 text-left transition duration-200 cursor-pointer flex items-center justify-between gap-3 max-lg:min-h-11 max-lg:px-2 max-lg:py-2 max-lg:gap-1 ${
                 isSelected ? 'border-[#FF5500] bg-[#FF5500]/15' : 'hover:border-white/30'
               }`}
             >
@@ -333,9 +334,9 @@ function EngineSection() {
                 <div className="font-mono text-[9px] tracking-[0.2em] text-[#A6E1FA]">
                   {tier.tierIndex}
                 </div>
-                <div className="font-bold text-xs text-[#F2EFE9] truncate">{tier.name}</div>
+                <div className="font-bold text-xs text-[#F2EFE9] truncate max-lg:text-[11px]">{tier.name}</div>
               </div>
-              <Cpu className={`w-4 h-4 shrink-0 ${isSelected ? 'text-[#FF5500]' : 'text-[#7E828E]'}`} />
+              <Cpu className={`w-4 h-4 shrink-0 max-lg:hidden ${isSelected ? 'text-[#FF5500]' : 'text-[#7E828E]'}`} />
             </button>
           );
         })}
@@ -345,9 +346,9 @@ function EngineSection() {
       <div
         data-ui
         aria-live="polite"
-        className="glass-strong border-[#A6E1FA]/25 lg:col-span-8 p-4 pointer-events-auto space-y-3"
+        className="glass-strong border-[#A6E1FA]/25 lg:col-span-8 p-4 pointer-events-auto space-y-3 max-lg:p-3"
       >
-        <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2 max-lg:flex-wrap max-lg:gap-1">
           <span className="font-mono text-xs tracking-[0.2em] text-[#FF5500]">
             {currentTier.tierIndex} // ACTIVE DIAGNOSTIC
           </span>
@@ -356,7 +357,7 @@ function EngineSection() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2.5">
           {currentTier.nodes.map((node) => (
             <div
               key={node.label}
@@ -365,7 +366,7 @@ function EngineSection() {
               <div className="font-mono text-[10px] tracking-[0.2em] text-[#A6E1FA]">
                 [{node.metric}]
               </div>
-              <div className="font-bold text-xs text-[#F2EFE9]">{node.label}</div>
+              <div className="font-bold text-xs text-[#F2EFE9] max-lg:text-[11px]">{node.label}</div>
               <p className="text-[11px] text-[#7E828E] leading-relaxed">{node.detail}</p>
             </div>
           ))}
@@ -386,14 +387,14 @@ function ChronologySection() {
     <Stage
       index={3}
       label="Chronology"
-      className="flex flex-col justify-end pb-20 px-10 md:px-24"
-      contentClassName="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-end justify-between gap-6"
+      className="flex flex-col justify-end pb-20 px-4 sm:px-6 md:px-10 lg:px-24 max-lg:pb-[calc(6rem+env(safe-area-inset-bottom))]"
+      contentClassName="w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-end justify-between gap-6 max-lg:items-stretch max-lg:gap-3 max-lg:max-h-[46svh] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:overscroll-contain max-lg:pointer-events-auto stage-sheet"
     >
       {/* Active milestone readout */}
       <div
         data-ui
         aria-live="polite"
-        className="glass-strong border-white/15 max-w-xl p-5 pointer-events-auto space-y-2.5"
+        className="glass-strong border-white/15 max-w-xl p-5 pointer-events-auto space-y-2.5 max-lg:p-4 max-lg:space-y-2"
       >
         <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em]">
           <span className="text-[#FF5500] flex items-center gap-2">
@@ -403,7 +404,7 @@ function ChronologySection() {
           <span className="text-[#A6E1FA]">{currentMilestone.year}</span>
         </div>
 
-        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#F2EFE9]">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-[#F2EFE9] max-lg:text-xl">
           {currentMilestone.title}
         </h2>
 
@@ -417,7 +418,7 @@ function ChronologySection() {
       </div>
 
       {/* Time scrubber buttons */}
-      <div data-ui className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pointer-events-auto w-full lg:w-auto">
+      <div data-ui className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pointer-events-auto w-full lg:w-auto max-lg:flex max-lg:overflow-x-auto max-lg:snap-x max-lg:overscroll-x-contain max-lg:pt-1 max-lg:pb-1">
         {CHRONOLOGY_MILESTONES.map((item, idx) => {
           const isSelected = activeChronologyIndex === idx;
           return (
@@ -429,7 +430,7 @@ function ChronologySection() {
                 setActiveChronologyIndex(idx);
                 soundEngine.triggerPing(440 + idx * 110);
               }}
-              className={`glass-chip p-3.5 text-left transition duration-200 cursor-pointer ${
+              className={`glass-chip p-3.5 text-left transition duration-200 cursor-pointer max-lg:min-w-[9rem] max-lg:shrink-0 max-lg:snap-start ${
                 isSelected
                   ? 'border-[#FF5500] bg-[#FF5500]/15 -translate-y-1'
                   : 'hover:border-white/30'
@@ -501,11 +502,11 @@ function ContactSection() {
     <Stage
       index={4}
       label="Event Horizon"
-      className="flex items-center justify-center px-6 md:px-24"
-      contentClassName="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+      className="flex items-center justify-center px-4 sm:px-6 md:px-10 lg:px-24 max-lg:items-end max-lg:pb-[calc(6rem+env(safe-area-inset-bottom))]"
+      contentClassName="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-lg:gap-3 max-lg:max-h-[calc(100svh-11rem)] max-lg:overflow-y-auto max-lg:overflow-x-hidden max-lg:overscroll-contain max-lg:pointer-events-auto stage-sheet stage-sheet-contact"
     >
       {/* Left: direct channels */}
-      <div data-ui className="glass lg:col-span-5 p-8 pointer-events-auto space-y-6">
+      <div data-ui className="glass lg:col-span-5 p-8 pointer-events-auto space-y-6 max-lg:p-4 max-lg:space-y-4">
         <div>
           <span className="font-mono text-[10px] tracking-[0.28em] text-[#FF5500] uppercase">
             [04 // EVENT HORIZON — DIRECT CHANNELS]
@@ -521,26 +522,26 @@ function ContactSection() {
           <AvailabilityBadge className="mt-3" />
         </div>
 
-        <div className="space-y-3 font-mono text-xs">
+        <div className="space-y-3 font-mono text-xs max-lg:grid max-lg:grid-cols-2 max-lg:gap-2 max-lg:space-y-0 max-lg:text-[10px]">
           {CHANNELS.map(({ label, href, Icon, iconClass, hoverClass, external }) => (
             <a
               key={label}
               href={href}
               {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
-              className={`flex items-center justify-between p-3.5 border border-white/10 bg-[#121318]/70 transition-colors ${hoverClass}`}
+              className={`flex items-center justify-between p-3.5 border border-white/10 bg-[#121318]/70 transition-colors max-lg:min-h-11 max-lg:min-w-0 max-lg:p-2.5 ${hoverClass}`}
             >
-              <span className="flex items-center gap-2.5 text-[#F2EFE9]">
-                <Icon className={`w-4 h-4 ${iconClass}`} />
-                <span>{label}</span>
+              <span className="flex items-center gap-2.5 text-[#F2EFE9] max-lg:min-w-0 max-lg:gap-2">
+                <Icon className={`w-4 h-4 max-lg:shrink-0 ${iconClass}`} />
+                <span className="max-lg:truncate">{label}</span>
               </span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#7E828E]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#7E828E] max-lg:hidden" />
             </a>
           ))}
         </div>
       </div>
 
       {/* Right: keystroke-reactive transmission form */}
-      <div data-ui className="glass-strong border-[#FF5500]/30 lg:col-span-7 p-8 md:p-10 pointer-events-auto">
+      <div data-ui className="glass-strong border-[#FF5500]/30 lg:col-span-7 p-8 lg:p-10 pointer-events-auto max-lg:p-4">
         {transmissionComplete ? (
           <div className="py-10 text-center space-y-5" role="status">
             <CheckCircle2 className="w-12 h-12 text-[#FF5500] mx-auto animate-bounce" />
@@ -562,7 +563,7 @@ function ContactSection() {
                 setStatus('idle');
                 resetTransmission();
               }}
-              className="px-6 py-3 border border-white/20 hover:border-[#FF5500] font-mono text-xs tracking-[0.2em] text-[#F2EFE9] transition-colors cursor-pointer"
+              className="px-6 py-3 border border-white/20 hover:border-[#FF5500] font-mono text-xs tracking-[0.2em] text-[#F2EFE9] transition-colors cursor-pointer max-lg:min-h-11"
             >
               SEND ANOTHER SIGNAL //
             </button>
@@ -596,7 +597,7 @@ function ContactSection() {
                   value={senderName}
                   onChange={(e) => handleKeystroke(e.target.value, setSenderName)}
                   placeholder="Commander / Recruiter"
-                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50"
+                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 max-lg:text-base max-lg:min-h-11"
                 />
               </div>
 
@@ -616,7 +617,7 @@ function ContactSection() {
                   value={senderEmail}
                   onChange={(e) => handleKeystroke(e.target.value, setSenderEmail)}
                   placeholder="signal@domain.com"
-                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#A6E1FA] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50"
+                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#A6E1FA] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 max-lg:text-base max-lg:min-h-11"
                 />
               </div>
             </div>
@@ -636,7 +637,7 @@ function ContactSection() {
                 value={messagePayload}
                 onChange={(e) => handleKeystroke(e.target.value, setMessagePayload)}
                 placeholder="Type here and watch the 3D Event Horizon ripple with every keystroke..."
-                className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 resize-none"
+                className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 resize-none max-lg:text-base max-lg:min-h-28"
               />
             </div>
 

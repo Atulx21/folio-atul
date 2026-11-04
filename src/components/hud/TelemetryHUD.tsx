@@ -230,13 +230,13 @@ export default function TelemetryHUD() {
       />
 
       {/* Structural 1px architectural hairline frame */}
-      <div className="fixed inset-4 md:inset-6 border border-white/[0.07] pointer-events-none z-30 flex flex-col justify-between">
+      <div className="fixed inset-2 sm:inset-4 md:inset-6 border border-white/[0.07] pointer-events-none z-30 flex flex-col justify-between">
         {/* TOP BAR */}
-        <header className="flex items-center justify-between px-5 py-4 border-b border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] pointer-events-auto">
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-pulse" />
-            <span className="font-mono text-xs tracking-[0.25em] text-[#F2EFE9] uppercase">
-              ATUL PARMAR // TESSERACT.OS
+        <header className="hud-chrome flex items-center justify-between px-5 py-4 border-b border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] pointer-events-auto max-lg:gap-2 max-lg:px-3 max-lg:py-1.5 max-lg:pt-[max(0.375rem,env(safe-area-inset-top))]">
+          <div className="flex items-center gap-3 max-lg:min-w-0">
+            <span className="w-2 h-2 rounded-full bg-[#FF5500] animate-pulse max-lg:shrink-0" />
+            <span className="font-mono text-xs tracking-[0.25em] text-[#F2EFE9] uppercase max-lg:truncate">
+              ATUL PARMAR<span className="max-sm:hidden">{' // TESSERACT.OS'}</span>
             </span>
           </div>
 
@@ -262,7 +262,7 @@ export default function TelemetryHUD() {
             })}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 max-lg:shrink-0">
             {/* Profile Button */}
             <button
               type="button"
@@ -270,10 +270,11 @@ export default function TelemetryHUD() {
                 soundEngine.triggerPing(660);
                 setProfileOpen(true);
               }}
-              className="flex items-center gap-2 border border-[#FF5500]/50 bg-[#FF5500]/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/20 cursor-pointer"
+              className="flex items-center gap-2 border border-[#FF5500]/50 bg-[#FF5500]/10 px-3 py-1.5 font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/20 cursor-pointer max-lg:min-h-11 max-lg:min-w-11 max-lg:justify-center"
+              aria-label="Open full profile"
             >
               <User className="h-3.5 w-3.5 text-[#FF5500]" />
-              <span>PROFILE</span>
+              <span className="max-sm:hidden">PROFILE</span>
             </button>
             
             {/* Audio toggle */}
@@ -281,17 +282,18 @@ export default function TelemetryHUD() {
               type="button"
               aria-pressed={!isAudioMuted}
               onClick={handleAudioToggle}
-              className="flex items-center gap-2 px-3 py-1.5 border border-white/10 bg-white/[0.02] hover:border-[#FF5500]/50 transition-colors font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] cursor-pointer"
+              className="flex items-center gap-2 px-3 py-1.5 border border-white/10 bg-white/[0.02] hover:border-[#FF5500]/50 transition-colors font-mono text-[10px] tracking-[0.2em] text-[#F2EFE9] cursor-pointer max-lg:min-h-11 max-lg:min-w-11 max-lg:justify-center"
+              aria-label="Ambient audio"
             >
               {isAudioMuted ? (
                 <>
                   <VolumeX className="w-3.5 h-3.5 text-[#7E828E]" />
-                  <span>AUDIO // OFF</span>
+                  <span className="max-sm:hidden">AUDIO // OFF</span>
                 </>
               ) : (
                 <>
                   <Volume2 className="w-3.5 h-3.5 text-[#FF5500]" />
-                  <span>HZ DRONE // ON</span>
+                  <span className="max-sm:hidden">HZ DRONE // ON</span>
                 </>
               )}
             </button>
@@ -331,8 +333,8 @@ export default function TelemetryHUD() {
         </div>
 
         {/* BOTTOM TELEMETRY READOUT BAR */}
-        <footer className="flex flex-wrap items-center justify-between px-5 py-3 border-t border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] font-mono text-[10px] tracking-[0.18em] text-[#7E828E]">
-          <div className="flex items-center gap-6">
+        <footer className="hud-chrome flex flex-wrap items-center justify-between px-5 py-3 border-t border-white/[0.07] bg-[#050507]/90 backdrop-blur-[6px] font-mono text-[10px] tracking-[0.18em] text-[#7E828E] max-lg:px-3 max-lg:pt-0.5 max-lg:pb-[max(1rem,env(safe-area-inset-bottom))] max-sm:justify-center">
+          <div className="hud-ticker flex items-center gap-6 max-md:hidden">
             <div className="flex items-center gap-2">
               <Compass className="w-3.5 h-3.5 text-[#A6E1FA]" />
               <span ref={coordRef} className="whitespace-pre text-[#F2EFE9]">
@@ -349,12 +351,38 @@ export default function TelemetryHUD() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Cpu className="w-3.5 h-3.5 text-[#FF5500]" />
-            <span className="text-[#F2EFE9]">
+          <div className="flex items-center gap-3 max-lg:min-w-0 max-sm:w-full max-sm:justify-center max-sm:pt-1.5">
+            <Cpu className="w-3.5 h-3.5 text-[#FF5500] max-lg:shrink-0" />
+            <span className="text-[#F2EFE9] max-lg:hidden">
               SECTOR {STAGES[activeStage]?.index} // {STAGES[activeStage]?.subtitle}
             </span>
+            <span className="truncate text-[#F2EFE9] lg:hidden">
+              SECTOR {STAGES[activeStage]?.index}{' // '}{STAGES[activeStage]?.name}
+            </span>
           </div>
+
+          {/* Compact stage dots (44px hit areas): same jumpToStage handler as the desktop nav */}
+          <nav aria-label="Stage dots" className="pointer-events-auto flex items-center lg:hidden max-sm:w-full max-sm:justify-center">
+            {STAGES.map((stage, idx) => {
+              const isActive = activeStage === idx;
+              return (
+                <button
+                  key={stage.id}
+                  type="button"
+                  aria-label={`Go to ${stage.name}`}
+                  aria-current={isActive ? 'true' : undefined}
+                  onClick={() => jumpToStage(stage.targetProgress, idx)}
+                  className="flex h-11 w-11 cursor-pointer items-center justify-center"
+                >
+                  <span
+                    className={`block rounded-full transition-all duration-300 ${
+                      isActive ? 'h-2.5 w-2.5 bg-[#FF5500]' : 'h-1.5 w-1.5 bg-white/40'
+                    }`}
+                  />
+                </button>
+              );
+            })}
+          </nav>
         </footer>
       </div>
     </>
