@@ -14,86 +14,86 @@ export interface EngineTierSpec {
 
 export const ENGINE_TIERS: EngineTierSpec[] = [
   {
-    id: 'presentation',
-    tierIndex: 'TIER 01 // TOP',
-    name: 'PRESENTATION & SPATIAL UI LAYER',
-    subtitle: 'REACT / NEXT.JS / REACT NATIVE / EXPO / WEBGL SHADERS',
+    id: 'core-code-3d',
+    tierIndex: 'TIER 01 // CODE & 3D',
+    name: 'LANGUAGES, SPATIAL 3D & CS CORE',
+    subtitle: 'TS / JS / PYTHON / C++ / C / C# / SQL / GLSL // THREE.JS / R3F / DSA & LLD',
     yOffset: 1.5,
     color: '#A6E1FA',
     nodes: [
       {
-        label: 'Declarative 3D & Shaders',
-        metric: '60-120 FPS',
+        label: 'Polyglot Codebase',
+        metric: 'TS · PY · C++ · C#',
         detail:
-          'Three.js, React Three Fiber, custom GLSL shaders and transient Zustand render loops. This portfolio is the proof.',
+          'Writing expressive TypeScript, JavaScript, Python, C++, C, C#, SQL, and GLSL—picking the right language for low-level logic, fast APIs, or GPU shaders.',
       },
       {
-        label: 'Cross-Platform Mobile',
-        metric: 'EXPO + RN',
+        label: '3D & Motion Engine',
+        metric: 'R3F · GLSL · LENIS',
         detail:
-          'UniLink and RozgarConnect: React Native with Expo Router file-based navigation, TypeScript and Reanimated, one codebase for iOS, Android and web.',
+          'Crafting living 3D scenes with Three.js, React Three Fiber, custom GLSL shaders, Zustand state, and Lenis smooth motion that make interfaces feel physical.',
       },
       {
-        label: 'Enterprise Web Views',
-        metric: 'MVC + SPA',
+        label: 'CS & System Rigor',
+        metric: 'DSA · OOP · LLD · OS',
         detail:
-          'React, TypeScript and Tailwind single-page apps, plus ASP.NET Core MVC with Razor views and AJAX-driven profile flows at Troywings.',
+          'Grounded in Data Structures & Algorithms, OOP, Low-Level Design, Operating Systems, DBMS, Networking, Cloud Computing, and Machine Learning.',
       },
     ],
   },
   {
-    id: 'service',
-    tierIndex: 'TIER 02 // CORE',
-    name: 'SERVICE, AI & ALGORITHMIC ENGINE',
-    subtitle: 'C# ASP.NET CORE / NODE.JS / PYTHON FASTAPI + FLASK / C++ DSA',
+    id: 'fullstack-mobile',
+    tierIndex: 'TIER 02 // WEB, MOBILE & APIs',
+    name: 'FULL-STACK APPS, MOBILE & BACKENDS',
+    subtitle: 'REACT / NEXT.JS / RN + EXPO // NODE / ASP.NET CORE / FASTAPI / FLASK',
     yOffset: 0.0,
     color: '#FF5500',
     nodes: [
       {
-        label: 'Full-Stack API Orchestration',
-        metric: 'REST + WS',
+        label: 'Modern Web UI',
+        metric: 'REACT · NEXT · TAILWIND',
         detail:
-          'ASP.NET Core MVC, Node.js/Express and Python FastAPI/Flask services with JWT authentication and Socket.IO real-time channels.',
+          'Shipping crisp, responsive interfaces with React, Next.js, Tailwind CSS, Vite, Shadcn/ui, and Framer Motion—from financial dashboards to AI workspaces.',
       },
       {
-        label: 'RAG & Computer Vision',
-        metric: 'LANGCHAIN',
+        label: 'Cross-Platform Mobile',
+        metric: 'RN · EXPO · REANIMATED',
         detail:
-          'LangChain RAG pipelines over FAISS with Hugging Face embeddings (AI-Tutor) and a DeepFace/OpenCV emotion service (MoodTunes).',
+          'Building smooth iOS, Android, and web apps with React Native, Expo, Expo Router, Reanimated, and React Native Paper—powering UniLink and RozgarConnect.',
       },
       {
-        label: 'Algorithmic & LLD Rigor',
-        metric: '400+ SOLVED',
+        label: 'APIs & Real-Time Sync',
+        metric: '.NET · NODE · FASTAPI',
         detail:
-          'Native C++ problem solving: 400+ DSA problems solved and a 100+ day streak on Codeforces and other platforms, across dynamic programming, trees, graphs and OOP low-level design.',
+          'Architecting REST APIs, JWT Auth, and Socket.IO live channels across Node.js, Express.js, ASP.NET Core MVC, FastAPI, and Flask.',
       },
     ],
   },
   {
-    id: 'data',
-    tierIndex: 'TIER 03 // BASE',
-    name: 'PERSISTENCE, INDEXING & VECTOR STORAGE',
-    subtitle: 'POSTGRESQL RLS / MONGODB / FAISS VECTOR INDEX / MYSQL',
+    id: 'ai-data-tooling',
+    tierIndex: 'TIER 03 // AI, DATA & OPS',
+    name: 'APPLIED AI, DATABASES & DEV TOOLING',
+    subtitle: 'LANGCHAIN · FAISS · DEEPFACE // POSTGRES · SUPABASE RLS · MONGODB · GIT',
     yOffset: -1.5,
     color: '#CFCABE',
     nodes: [
       {
-        label: 'Query & Index Optimization',
-        metric: 'B-TREE + PROJ',
+        label: 'Applied AI & Vision',
+        metric: 'RAG · FAISS · OPENCV',
         detail:
-          'MongoDB indexes designed per collection, with compound keys and field projections, to avoid collection scans (Troywings).',
+          'Building grounded AI workflows with LangChain, RAG pipelines, FAISS, and Hugging Face (AI-Tutor) alongside DeepFace and OpenCV emotion detection (MoodTunes).',
       },
       {
-        label: 'Zero-Trust Relational RLS',
-        metric: 'SUPABASE SQL',
+        label: 'Databases & Security',
+        metric: 'POSTGRES RLS · MONGO',
         detail:
-          'Normalized PostgreSQL schemas where Row Level Security and role-based access enforce permissions in the database, with unique constraints guarding integrity (UniLink, RozgarConnect).',
+          'Designing relational and document schemas in PostgreSQL, Supabase (with Row Level Security), MongoDB, MySQL, and FAISS vector indexes for speed and integrity.',
       },
       {
-        label: 'High-Dimensional Vectors',
-        metric: 'FAISS INDEX',
+        label: 'Shipping & Tooling',
+        metric: 'GIT · VS · VERCEL',
         detail:
-          'Dense vector similarity search over recursively chunked PDFs, so answers come from meaning, not keyword matching (AI-Tutor).',
+          'Moving fast with Git, GitHub, VS Code, Visual Studio, and Vercel—turning prototypes into clean, reliable deployments.',
       },
     ],
   },
@@ -161,10 +161,10 @@ export const CHRONOLOGY_MILESTONES: ChronologyNode[] = [
     year: '2022 — 2026',
     code: 'NODE.05 // B.TECH COMPUTER SCIENCE',
     title: 'IIIT GUWAHATI',
-    organization: 'BACHELOR OF TECHNOLOGY IN CSE',
+    organization: 'B.TECH IN COMPUTER SCIENCE & ENGINEERING',
     category: 'EDUCATION',
     accent: '#F2EFE9',
     description:
-      'B.Tech in Computer Science and Engineering at the Indian Institute of Information Technology, Guwahati. Coursework in data structures and algorithms, OOP, operating systems, DBMS, networking, cloud computing and machine learning. Built UniLink, AI-Tutor, MoodTunes and RozgarConnect along the way. Before that: HSC (Maharashtra State Board), 94.17%, 2021.',
+      'B.Tech in Computer Science and Engineering at the Indian Institute of Information Technology, Guwahati. Coursework in data structures and algorithms, OOP, operating systems, DBMS, networking, cloud computing and machine learning. Built UniLink, AI-Tutor, MoodTunes and RozgarConnect along the way. Prior HSC (Maharashtra State Board), 94.17%, 2021.',
   },
 ];
