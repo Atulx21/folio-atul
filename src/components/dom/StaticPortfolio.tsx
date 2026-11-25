@@ -34,11 +34,11 @@ export default function StaticPortfolio({ hasWebGL }: { hasWebGL: boolean }) {
       }}
     >
       {/* ── Slim sticky header ── */}
-      <header className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-white/10 bg-[#050507]/90 px-6 py-3 backdrop-blur-sm md:px-12">
+      <header className="sticky top-0 z-50 flex items-center justify-between gap-4 border-b border-white/10 bg-[#050507]/90 px-4 py-3 backdrop-blur-sm md:px-6 lg:px-12">
         <span className="font-mono text-xs tracking-[0.28em] text-[#A6E1FA] uppercase">
           {PROFILE.name.toUpperCase()}{' // PORTFOLIO'}
         </span>
-        <nav aria-label="Header links" className="flex items-center gap-3 font-mono text-[10px] tracking-[0.2em]">
+        <nav aria-label="Header links" className="flex flex-wrap items-center gap-3 font-mono text-[10px] tracking-[0.2em]">
           <a
             href={GITHUB_URL}
             target="_blank"
@@ -79,13 +79,13 @@ export default function StaticPortfolio({ hasWebGL }: { hasWebGL: boolean }) {
       {/* ── Hero ── */}
       <section
         aria-label="Hero"
-        className="px-6 py-20 md:px-12 md:py-32"
+        className="px-4 py-14 sm:px-6 sm:py-20 md:px-10 md:py-32"
       >
         <div className="mx-auto max-w-4xl space-y-6">
           <p className="font-mono text-xs tracking-[0.35em] text-[#FF5500] uppercase">
             [PORTFOLIO // STATIC VIEW]
           </p>
-          <h1 className="text-[clamp(2.6rem,7.2vw,6.5rem)] font-extrabold tracking-tighter leading-[0.92] uppercase">
+          <h1 className="text-[clamp(2.25rem,10vw,4rem)] sm:text-[clamp(2.6rem,7.2vw,6.5rem)] font-extrabold tracking-tighter leading-[0.92] uppercase">
             ATUL <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F2EFE9] via-[#A6E1FA] to-[#FF5500]">
               PARMAR
@@ -98,19 +98,19 @@ export default function StaticPortfolio({ hasWebGL }: { hasWebGL: boolean }) {
           <p className="max-w-xl text-sm md:text-base text-[#7E828E] font-light leading-relaxed">
             {PROFILE.summary[0]}
           </p>
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-2">
             <a
               href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 border border-[#FF5500] bg-[#FF5500]/10 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/25"
+              className="flex items-center gap-2 border border-[#FF5500] bg-[#FF5500]/10 px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#F2EFE9] transition-colors hover:bg-[#FF5500]/25 max-sm:w-full max-sm:justify-center max-sm:flex"
             >
               <FileText className="h-3.5 w-3.5" />
               <span>RESUME</span>
             </a>
             <a
               href="#profile-summary"
-              className="flex items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9]"
+              className="flex items-center gap-2 bg-[#FF5500] px-5 py-3 font-mono text-xs font-bold uppercase tracking-[0.22em] text-[#050507] transition-colors hover:bg-[#F2EFE9] max-sm:w-full max-sm:justify-center max-sm:flex"
             >
               VIEW FULL PROFILE
             </a>
@@ -129,7 +129,7 @@ export default function StaticPortfolio({ hasWebGL }: { hasWebGL: boolean }) {
       </section>
 
       {/* ── Profile content ── */}
-      <section aria-label="Profile" className="px-6 pb-24 md:px-12">
+      <section aria-label="Profile" className="px-4 pb-16 sm:px-6 md:px-10 md:pb-24">
         <div className="mx-auto max-w-5xl space-y-12">
           <ProfileContent onOpenProject={(id) => setSelectedProject(id)} />
         </div>
@@ -139,7 +139,7 @@ export default function StaticPortfolio({ hasWebGL }: { hasWebGL: boolean }) {
       <section
         aria-label="Contact"
         id="contact"
-        className="border-t border-white/10 px-6 py-20 md:px-12"
+        className="border-t border-white/10 px-4 py-14 sm:px-6 sm:py-20 md:px-10 md:py-20 pb-[max(3.5rem,calc(3.5rem+env(safe-area-inset-bottom)))]"
       >
         <ContactForm />
       </section>

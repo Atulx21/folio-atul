@@ -377,19 +377,19 @@ function ProfileShell() {
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
-      className="modal-backdrop fixed inset-0 z-[45] flex items-stretch justify-center bg-[#050507]/90 md:p-6"
+      className="modal-backdrop fixed inset-0 z-[45] flex items-stretch justify-center bg-[#050507]/90 p-0 md:p-6"
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-label="Full profile"
         data-closing={closing}
-        className="modal-panel relative flex w-full max-w-5xl flex-col overflow-hidden border border-white/15 bg-[#0B0C10]/[0.98] text-[#F2EFE9] shadow-2xl"
+        className="modal-panel relative flex w-full max-w-5xl flex-col overflow-hidden border border-white/15 bg-[#0B0C10]/[0.98] text-[#F2EFE9] shadow-2xl md:max-h-[92vh] md:my-auto"
       >
         <div className="h-px w-full shrink-0 bg-gradient-to-r from-[#FF5500] to-transparent" />
 
         {/* Header */}
-        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-5 py-3 md:px-8">
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-5 py-3 md:px-8 max-md:pt-[max(0.75rem,env(safe-area-inset-top))]">
           <span className="truncate font-mono text-xs tracking-[0.25em] text-[#A6E1FA]">
             PROFILE // {PROFILE.name.toUpperCase()}
           </span>
@@ -448,7 +448,7 @@ function ProfileShell() {
         >
           <ProfileContent onOpenProject={openProject} />
 
-          <p className="pb-2 text-center font-mono text-[10px] tracking-[0.25em] text-[#7E828E]">
+          <p className="pb-2 max-md:pb-[max(1rem,env(safe-area-inset-bottom))] text-center font-mono text-[10px] tracking-[0.25em] text-[#7E828E]">
             PRESS ESC TO RETURN TO THE 3D EXPERIENCE
           </p>
         </div>

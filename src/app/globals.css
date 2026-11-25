@@ -242,3 +242,20 @@ button,
     font-size: 0.75rem;
   }
 }
+
+/* ───────────── CSS scroll snap for touch (progressive enhancement) ───────────── */
+/* JS snapping in SmoothScroll is for fine pointers (mouse/trackpad).
+   On coarse-pointer touch devices the class below is added by page.tsx so the browser
+   handles snap natively without fighting Lenis (Lenis does not intercept touch events
+   when data-lenis-prevent-touch is set on the scrollable element). */
+html.touch-snap {
+  scroll-snap-type: y mandatory;
+}
+html.touch-snap #stage-0,
+html.touch-snap #stage-1,
+html.touch-snap #stage-2,
+html.touch-snap #stage-3,
+html.touch-snap #stage-4 {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}

@@ -694,11 +694,11 @@ function getDeviceProfile(): { hasWebGL: boolean } {
   }
 }
 
-type Mode = 'pending' | 'webgl' | 'static';
+type Mode = 'webgl' | 'static';
 
 /* ───────────────────────── Page ───────────────────────── */
 export default function PortfolioSpatialEngine() {
-  const [mode, setMode] = useState<Mode>('pending');
+  const [mode, setMode] = useState<Mode>('webgl');
   const [hasWebGL, setHasWebGL] = useState(false);
 
   // Always start at the hero: a restored mid-page scroll would put the content
@@ -728,10 +728,18 @@ export default function PortfolioSpatialEngine() {
     }
   }, []);
 
-  // ── Pending: dark background only ──
-  if (mode === 'pending') {
-    return <div className="fixed inset-0 bg-[#050507]" aria-hidden />;
-  }
+  // Add touch-snap class so CSS scroll-snap handles stage snapping on coarse-pointer devices
+  useEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse)');
+    const apply = (matches: boolean) => {
+      document.documentElement.classList.toggle('touch-snap', matches);
+    };
+    apply(mq.matches);
+    mq.addEventListener('change', (e) => apply(e.matches));
+    return () => {
+      document.documentElement.classList.remove('touch-snap');
+    };
+  }, []);
 
   // ── Static mode ──
   if (mode === 'static') {

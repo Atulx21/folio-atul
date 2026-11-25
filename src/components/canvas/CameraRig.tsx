@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSpatialStore } from '@/store/useSpatialStore';
+import { COMPACT_MAX_WIDTH, compactDolly } from '@/utils/compactView';
 import SingularityCore from './SingularityCore';
 import ArchiveMonoliths from './ArchiveMonoliths';
 import EngineTopology from './EngineTopology';
@@ -70,6 +71,16 @@ export default function CameraRig() {
 
     pos.x += store.mouse.x * 1.1;
     pos.y += store.mouse.y * 0.8;
+
+    // Compact-view dolly: pull camera back so scene fits in top ~54 % of portrait viewports.
+    // Returns k=1 on desktop/landscape -- no visual change there.
+    if (state.size.width < COMPACT_MAX_WIDTH) {
+      const aspect = state.size.width / state.size.height;
+      const k = compactDolly(aspect);
+      if (k !== 1) {
+        pos.sub(look).multiplyScalar(k).add(look);
+      }
+    }
 
     state.camera.position.copy(pos);
     state.camera.lookAt(look);

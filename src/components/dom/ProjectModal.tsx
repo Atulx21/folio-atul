@@ -119,7 +119,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
       onClick={(e) => {
         if (e.target === e.currentTarget) close();
       }}
-      className="modal-backdrop fixed inset-0 z-40 flex items-end justify-center bg-[#050507]/80 p-0 md:items-center md:justify-end md:p-10"
+      className="modal-backdrop fixed inset-0 z-40 flex items-end justify-center bg-[#050507]/80 p-0 max-md:items-stretch md:items-center md:justify-end md:p-10"
     >
       <div
         ref={panelRef}
@@ -127,7 +127,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
         aria-modal="true"
         aria-labelledby="project-modal-title"
         data-closing={closing}
-        className="modal-panel relative flex max-h-full w-full max-w-2xl flex-col overflow-hidden border border-white/15 bg-[#0B0C10]/[0.97] text-[#F2EFE9] shadow-2xl md:max-h-[88vh]"
+        className="modal-panel relative flex max-h-[90svh] w-full max-w-2xl flex-col overflow-hidden border border-white/15 bg-[#0B0C10]/[0.97] text-[#F2EFE9] shadow-2xl md:max-h-[88vh]"
       >
         {/* Accent hairline */}
         <div
@@ -136,7 +136,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
         />
 
         {/* Header (stays visible) */}
-        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-6 py-4 md:px-8">
+        <div className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-6 py-4 md:px-8 max-md:pt-[max(1rem,env(safe-area-inset-top))]">
           <div className="flex min-w-0 items-center gap-3">
             <span
               className="h-2.5 w-2.5 shrink-0 rounded-full"
@@ -152,7 +152,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
               type="button"
               aria-label="Previous project"
               onClick={() => go(-1)}
-              className="cursor-pointer border border-white/15 p-1.5 text-[#7E828E] transition-colors hover:border-[#FF5500] hover:text-[#F2EFE9]"
+              className="cursor-pointer border border-white/15 p-1.5 text-[#7E828E] transition-colors hover:border-[#FF5500] hover:text-[#F2EFE9] max-md:min-w-[44px] max-md:min-h-[44px] max-md:flex max-md:items-center max-md:justify-center"
             >
               <ChevronLeft className="h-3.5 w-3.5" />
             </button>
@@ -163,7 +163,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
               type="button"
               aria-label="Next project"
               onClick={() => go(1)}
-              className="cursor-pointer border border-white/15 p-1.5 text-[#7E828E] transition-colors hover:border-[#FF5500] hover:text-[#F2EFE9]"
+              className="cursor-pointer border border-white/15 p-1.5 text-[#7E828E] transition-colors hover:border-[#FF5500] hover:text-[#F2EFE9] max-md:min-w-[44px] max-md:min-h-[44px] max-md:flex max-md:items-center max-md:justify-center"
             >
               <ChevronRight className="h-3.5 w-3.5" />
             </button>
@@ -317,7 +317,7 @@ function ModalShell({ project }: { project: ProjectSpec }) {
         </div>
 
         {/* Footer (always visible): tech tags + demo + repository */}
-        <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-white/10 px-6 py-4 md:px-8">
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-4 border-t border-white/10 px-6 py-4 md:px-8 max-md:pb-[max(1rem,env(safe-area-inset-bottom))]">
           <div className="flex flex-wrap gap-1.5">
             {project.techStack.map((tech) => (
               <span

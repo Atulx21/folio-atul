@@ -157,7 +157,7 @@ export default function ContactForm() {
   return (
     <div className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
       {/* Left: direct channels */}
-      <div data-ui className="glass lg:col-span-5 p-8 pointer-events-auto space-y-6">
+      <div data-ui className="glass lg:col-span-5 p-5 md:p-8 pointer-events-auto space-y-6">
         <div>
           <span className="font-mono text-[10px] tracking-[0.28em] text-[#FF5500] uppercase">
             [04 // EVENT HORIZON — DIRECT CHANNELS]
@@ -192,7 +192,7 @@ export default function ContactForm() {
       </div>
 
       {/* Right: keystroke-reactive transmission form */}
-      <div data-ui className="glass-strong border-[#FF5500]/30 lg:col-span-7 p-8 md:p-10 pointer-events-auto">
+      <div data-ui className="glass-strong border-[#FF5500]/30 lg:col-span-7 p-5 md:p-8 lg:p-10 pointer-events-auto">
         {transmissionComplete ? (
           <div className="py-10 text-center space-y-5" role="status">
             <CheckCircle2 className="w-12 h-12 text-[#FF5500] mx-auto animate-bounce" />
@@ -214,7 +214,7 @@ export default function ContactForm() {
                 setStatus('idle');
                 resetTransmission();
               }}
-              className="px-6 py-3 border border-white/20 hover:border-[#FF5500] font-mono text-xs tracking-[0.2em] text-[#F2EFE9] transition-colors cursor-pointer"
+              className="px-6 py-3 border border-white/20 hover:border-[#FF5500] font-mono text-xs tracking-[0.2em] text-[#F2EFE9] transition-colors cursor-pointer max-lg:min-h-[44px]"
             >
               SEND ANOTHER SIGNAL //
             </button>
@@ -248,7 +248,7 @@ export default function ContactForm() {
                   value={senderName}
                   onChange={(e) => handleKeystroke(e.target.value, setSenderName)}
                   placeholder="Commander / Recruiter"
-                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50"
+                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 max-lg:text-base max-lg:min-h-[44px]"
                 />
               </div>
 
@@ -268,7 +268,7 @@ export default function ContactForm() {
                   value={senderEmail}
                   onChange={(e) => handleKeystroke(e.target.value, setSenderEmail)}
                   placeholder="signal@domain.com"
-                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#A6E1FA] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50"
+                  className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#A6E1FA] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 max-lg:text-base max-lg:min-h-[44px]"
                 />
               </div>
             </div>
@@ -288,7 +288,7 @@ export default function ContactForm() {
                 value={messagePayload}
                 onChange={(e) => handleKeystroke(e.target.value, setMessagePayload)}
                 placeholder="Type here and watch the 3D Event Horizon ripple with every keystroke..."
-                className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 resize-none"
+                className="w-full px-4 py-3 bg-[#121318]/90 border border-white/15 focus:border-[#FF5500] focus:outline-none font-mono text-xs text-[#F2EFE9] placeholder:text-[#7E828E]/50 resize-none max-lg:text-base max-lg:min-h-[112px]"
               />
             </div>
 
@@ -313,7 +313,7 @@ export default function ContactForm() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full py-4 bg-[#FF5500] text-[#050507] font-mono text-xs font-bold tracking-[0.25em] uppercase hover:bg-[#F2EFE9] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-[#FF5500] text-[#050507] font-mono text-xs font-bold tracking-[0.25em] uppercase hover:bg-[#F2EFE9] transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed max-lg:min-h-[44px]"
             >
               <Send className="w-3.5 h-3.5" />
               <span>
