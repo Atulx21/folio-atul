@@ -143,7 +143,7 @@ export const CHRONOLOGY_MILESTONES: ChronologyNode[] = [
     category: 'ACHIEVEMENT',
     accent: '#FF5500',
     description:
-      'Solved 400+ DSA problems in native C++ across dynamic programming, trees and graphs, and kept a 100+ day solving streak on Codeforces and other platforms. Also built a custom HTML5 Canvas Bezier-curve spring-damper simulation driven by Hooke’s Law.',
+      'Solved 500+ DSA problems in native C++ across dynamic programming, trees and graphs, and kept a 100+ day solving streak on Codeforces and other platforms. Also built a custom HTML5 Canvas Bezier-curve spring-damper simulation driven by Hooke’s Law.',
   },
   {
     id: 'caset-2024',
