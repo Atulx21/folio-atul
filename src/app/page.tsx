@@ -700,6 +700,8 @@ type Mode = 'webgl' | 'static';
 export default function PortfolioSpatialEngine() {
   const [mode, setMode] = useState<Mode>('webgl');
   const [hasWebGL, setHasWebGL] = useState(false);
+  // 3D bundle is only requested once detection says we are NOT in static mode
+  const [canvasAllowed, setCanvasAllowed] = useState(false);
 
   // Always start at the hero: a restored mid-page scroll would put the content
   // and the 3D camera out of sync with the stage state on reload.
@@ -723,6 +725,7 @@ export default function PortfolioSpatialEngine() {
 
     if (!forceStatic && profile.hasWebGL && !simpleView) {
       setMode('webgl');
+      setCanvasAllowed(true);
     } else {
       setMode('static');
     }
@@ -753,12 +756,12 @@ export default function PortfolioSpatialEngine() {
 
   // ── WebGL mode (unchanged tree) ──
   return (
-    <SmoothScroll>
+    <SmoothScroll enabled={canvasAllowed}>
       {/* 0. Cinematic airlock preloader */}
       <PreloaderOverlay />
 
       {/* 1. Persistent 3D WebGL engine – guarded by error boundary */}
-      <CanvasGate onFail={() => setMode('static')} />
+      {canvasAllowed && <CanvasGate onFail={() => setMode('static')} />}
 
       {/* 2. Persistent telemetry HUD */}
       <TelemetryHUD />

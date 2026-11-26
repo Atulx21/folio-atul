@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect } from 'react';
 import Lenis from 'lenis';
-import { addEffect } from '@react-three/fiber';
 import { useSpatialStore } from '@/store/useSpatialStore';
 
 /* Stage snapping: after the user stops scrolling, glide to the nearest designed camera pose. */
@@ -11,8 +10,9 @@ const SNAP_IDLE_MS = 140;     // wait this long after scrolling stops
 const SNAP_MIN_MOVE = 0.06;   // fraction of one stage gap that counts as "intent to move"
 const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
-export default function SmoothScroll({ children }: { children: ReactNode }) {
+export default function SmoothScroll({ children, enabled = true }: { children: ReactNode; enabled?: boolean }) {
   useEffect(() => {
+    if (!enabled) return;
     const lenis = new Lenis({
       autoRaf: false, // we drive Lenis from R3F's frame loop (single clock)
       lerp: 0.09,
@@ -75,8 +75,11 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
       }
     };
 
-    // Lenis advances inside R3F's frame, right before render
-    const removeEffect = addEffect((time: number) => {
+    // Lenis advances inside R3F's frame, right before render.
+    // R3F is imported lazily so the plain (static) view never downloads three.js.
+    let cancelled = false;
+    let removeEffect: (() => void) | undefined;
+    const onFrame = (time: number) => {
       lenis.raf(time);
 
       // Frame-rate independent velocity decay (equals *0.92 per frame at 60fps)
@@ -93,15 +96,19 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
           evaluateSnap();
         }
       }
+    };
+    import('@react-three/fiber').then(({ addEffect }) => {
+      if (!cancelled) removeEffect = addEffect(onFrame);
     });
 
     return () => {
+      cancelled = true;
       window.removeEventListener('mousemove', handleMouseMove);
-      removeEffect();
+      removeEffect?.();
       lenis.destroy();
       w.lenis = undefined;
     };
-  }, []);
+  }, [enabled]);
 
   return <>{children}</>;
 }
